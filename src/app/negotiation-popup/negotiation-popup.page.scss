@@ -1,0 +1,11 @@
+body
+{
+    background: rgb(83,144,182);
+    --background: rgb(83,144,182);
+    //--background: linear-gradient(140deg, rgba(83,144,182,1) 80%, rgba(102,153,204,1) 100%);
+    --background: linear-gradient(140deg, rgba(83,144,182,1) 90%, rgb(67,123,158) 100%);
+}
+
+ion-toolbar{
+    border-bottom: 1px solid rgba(255,255,255,0.175);
+}

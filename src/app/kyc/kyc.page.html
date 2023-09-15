@@ -1,0 +1,328 @@
+<ion-content style="background-color: #ffffff" scroll-events="false" forceOverscroll="false">
+  <div class="logo-block">
+    <div class="small-logo">
+      <img src="assets/img/instavest_logo_w_250x47.png" />
+    </div>
+  </div>
+
+
+  <ng-container *ngIf="currentPage==='FICA-main'">
+    <div class="infoblock">
+      <h2 class="Exo2-n">Deposit received!</h2>
+
+      <ng-container *ngIf="kycDocs && kycDocs.length > 0">
+
+        <p>Good news! We've received your payment. To release your Azuza coins into your wallet we need to verify your
+          identity inline
+          with South Africa's FAIS act requirements. Please provide the following pesonal
+          document{{ kycDocs.length > 1 ? 's' : ''}}. Your
+          personal information will be encrypted and stored securely.</p>
+
+
+        <ng-container *ngFor="let item of kycDocs">
+          <ng-container *ngIf="item.lrid === '41' || item.lrid === '43' || item.lrid === '44'">
+            <ion-button *ngIf="item.lrid === '41'"  expand="full" color="secondary"
+              (click)="navigate('ID-options')" class="doc-btn" [disabled]="item.state === 'A' || item.state === 'N'">
+              <ion-label>Proof of identity</ion-label>
+              <ion-icon *ngIf="item.state === 'A' || item.state === 'N'" color="light" slot="end" color="success"
+                name="checkmark-circle-outline"></ion-icon>
+              <ion-icon *ngIf="item.state === 'X' || item.state === ''" color="light" slot="end" name="camera-outline">
+              </ion-icon>
+              <ion-icon *ngIf="item.state === 'R'" color="light" slot="end" name="close-circle-outline"></ion-icon>
+            </ion-button>
+            <ion-button *ngIf="item.lrid === '43'"  expand="full" color="secondary"
+              (click)="navigate('PoA')" class="doc-btn" [disabled]="item.state === 'A' || item.state === 'N'">
+              <ion-label>Proof of address</ion-label>
+              <ion-icon *ngIf="item.state === 'A' || item.state === 'N'" color="light" slot="end" color="success"
+                name="checkmark-circle-outline"></ion-icon>
+              <ion-icon *ngIf="item.state === 'X' || item.state === ''" color="light" slot="end" name="camera-outline">
+              </ion-icon>
+              <ion-icon *ngIf="item.state === 'R'" color="light" slot="end" name="close-circle-outline"></ion-icon>
+            </ion-button>
+            <ion-button *ngIf="item.lrid === '44'"  expand="full" color="secondary"
+              (click)="navigate('Selfie')" class="doc-btn" [disabled]="item.state === 'A' || item.state === 'N'">
+              <ion-label>Proof of life</ion-label>
+              <ion-icon *ngIf="item.state === 'A' || item.state === 'N'" color="light" slot="end" color="success"
+                name="checkmark-circle-outline"></ion-icon>
+              <ion-icon *ngIf="item.state === 'X' || item.state === ''" color="light" slot="end" name="camera-outline">
+              </ion-icon>
+              <ion-icon *ngIf="item.state === 'R'" color="light" slot="end" name="close-circle-outline"></ion-icon>
+            </ion-button>
+          </ng-container>
+        </ng-container>
+
+        <div class="paragraph auth-block-text small ion-text-center">
+          <ion-icon color="light" slot="end" color="light" name="camera-outline">
+          </ion-icon> means document required.<br />
+          <ion-icon color="light" slot="end" color="light" name="close-circle-outline">
+          </ion-icon> means document rejected, upload again.<br />
+          <ion-icon color="light" slot="end" color="success" name="checkmark-circle-outline">
+          </ion-icon> means documents received. No action required.
+        </div>
+      </ng-container>
+    </div>
+  </ng-container>
+
+
+    <ng-container *ngIf="currentPage==='FICA-main'">
+        <div class="infoblock">
+            <h2 class="Exo2-n">Deposit received!</h2>
+
+            <ng-container *ngIf="kycDocs && kycDocs.length > 0">
+
+                <p>Good news! We've received your payment. To release your Instavest coins into your wallet we need to verify your identity inline with South Africa's FAIS act requirements. Please provide the following pesonal document{{ kycDocs.length >
+                    1 ? 's' : ''}}. Your personal information will be encrypted and stored securely.</p>
+
+
+                <ng-container *ngFor="let item of kycDocs">
+                    <ng-container *ngIf="item.lrid === '41' || item.lrid === '43' || item.lrid === '44'">
+                        <ion-button *ngIf="item.lrid === '41'"  expand="full" color="secondary" (click)="navigate('ID-options')" class="doc-btn" [disabled]="item.state === 'A' || item.state === 'N'">
+                            <ion-label>Proof of identity</ion-label>
+                            <ion-icon *ngIf="item.state === 'A' || item.state === 'N'" color="light" slot="end" color="success" name="checkmark-circle-outline"></ion-icon>
+                            <ion-icon *ngIf="item.state === 'X' || item.state === ''" color="light" slot="end" name="camera-outline">
+                            </ion-icon>
+                            <ion-icon *ngIf="item.state === 'R'" color="light" slot="end" name="close-circle-outline"></ion-icon>
+                        </ion-button>
+                        <ion-button *ngIf="item.lrid === '43'"  expand="full" color="secondary" (click)="navigate('PoA')" class="doc-btn" [disabled]="item.state === 'A' || item.state === 'N'">
+                            <ion-label>Proof of address</ion-label>
+                            <ion-icon *ngIf="item.state === 'A' || item.state === 'N'" color="light" slot="end" color="success" name="checkmark-circle-outline"></ion-icon>
+                            <ion-icon *ngIf="item.state === 'X' || item.state === ''" color="light" slot="end" name="camera-outline">
+                            </ion-icon>
+                            <ion-icon *ngIf="item.state === 'R'" color="light" slot="end" name="close-circle-outline"></ion-icon>
+                        </ion-button>
+                        <ion-button *ngIf="item.lrid === '44'"  expand="full" color="secondary" (click)="navigate('Selfie')" class="doc-btn" [disabled]="item.state === 'A' || item.state === 'N'">
+                            <ion-label>Proof of life</ion-label>
+                            <ion-icon *ngIf="item.state === 'A' || item.state === 'N'" color="light" slot="end" color="success" name="checkmark-circle-outline"></ion-icon>
+                            <ion-icon *ngIf="item.state === 'X' || item.state === ''" color="light" slot="end" name="camera-outline">
+                            </ion-icon>
+                            <ion-icon *ngIf="item.state === 'R'" color="light" slot="end" name="close-circle-outline"></ion-icon>
+                        </ion-button>
+                    </ng-container>
+                </ng-container>
+
+                <div class="paragraph auth-block-text small ion-text-center">
+                    <ion-icon color="light" slot="end" color="light" name="camera-outline">
+                    </ion-icon> means document required.<br />
+                    <ion-icon color="light" slot="end" color="light" name="close-circle-outline">
+                    </ion-icon> means document rejected, upload again.<br />
+                    <ion-icon color="light" slot="end" color="success" name="checkmark-circle-outline">
+                    </ion-icon> means documents received. No action required.
+                </div>
+            </ng-container>
+            <ng-container *ngIf="!kycDocs || kycDocs.length < 1">
+                <ion-spinner color="light" name="dots" style="margin: auto 3em;"></ion-spinner>
+            </ng-container>
+        </div>
+        <ion-button (click)="goHome()" expand="full" fill="clear" size="small" type="button" class="returningUserLink">
+            Skip this, I'll do it later.
+        </ion-button>
+    </ng-container>
+
+    <ng-container *ngIf="currentPage==='ID-options-page'">
+        <div class="infoblock">
+            <h2 class="Exo2-n">Proof of identity</h2>
+
+            <ng-container *ngIf="kycDocs && kycDocs.length > 0">
+                <p>Which form of personal identity will you be using?</p>
+                <ion-button  expand="full" color="secondary" (click)="navigate('ID-book')" class="doc-btn">
+                    <ion-label>SA ID Book</ion-label>
+                </ion-button>
+                <ion-button  expand="full" color="secondary" (click)="navigate('ID-card')" class="doc-btn">
+                    <ion-label>SA ID Card</ion-label>
+                </ion-button>
+                <ion-button  expand="full" color="secondary" (click)="navigate('Passport')" class="doc-btn">
+                    <ion-label>Passport</ion-label>
+                </ion-button>
+            </ng-container>
+            <ng-container *ngIf="!kycDocs || kycDocs.length < 1">
+                <ion-spinner color="light" name="dots" style="margin-top: 3em;"></ion-spinner>
+            </ng-container>
+        </div>
+        <ion-button (click)="navigate('FICA-main')" expand="full" fill="clear" size="small" type="button" class="returningUserLink">
+            Go back
+        </ion-button>
+    </ng-container>
+
+
+    <ng-container *ngIf="currentPage==='ID-book-page'">
+        <div class="infoblock">
+            <h2 class="Exo2-n">Snap a pic!</h2>
+            <p class="text primary">Open your South African ID Book on the first page that shows your personal details, as shown in the picture below.</p>
+
+            <ion-img class="idBookImg" src="assets/img/SAIDBook.png"></ion-img>
+
+            <p class="text primary">Tap the button and take a clear picture of the detail page.</p>
+
+            <div class="confirm-buttons" style="margin-top: 0.25em;">
+                <ion-button  expand="full" class="doc-btn default" color="secondary" (click)="navigate('takePhoto')" class="doc-btn">
+                    <ion-icon color="light" slot="start" name="camera-outline"></ion-icon>
+                    <ion-label color="light">Take Photo</ion-label>
+                </ion-button>
+            </div>
+        </div>
+        <ion-button (click)="navigate('ID-options')" expand="full" fill="clear" size="small" type="button" class="returningUserLink">
+            Go back
+        </ion-button>
+
+    </ng-container>
+
+    <ng-container *ngIf="currentPage==='Passport-page'">
+        <div class="infoblock">
+            <h2 class="Exo2-n">Snap a pic!</h2>
+            <p class="text primary">Open your passport on the page that shows your nationality, identity number and other personal details, as shown in the picture below.</p>
+
+            <ion-img class="idBookImg" src="assets/img/SAIDBook.png"></ion-img>
+
+            <p class="text primary">Tap the button and take a clear picture of the detail page.</p>
+
+            <div class="confirm-buttons" style="margin-top: 0.25em;">
+                <ion-button  expand="full" class="doc-btn default" color="secondary" (click)="navigate('takePhoto')" class="doc-btn">
+                    <ion-icon color="light" slot="start" name="camera-outline"></ion-icon>
+                    <ion-label color="light">Take Photo</ion-label>
+                </ion-button>
+            </div>
+        </div>
+        <ion-button (click)="navigate('ID-options')" expand="full" fill="clear" size="small" type="button" class="returningUserLink">
+            Go back
+        </ion-button>
+    </ng-container>
+
+    <ng-container *ngIf="currentPage==='ID-card-page-1'">
+        <div class="infoblock">
+            <h2 class="Exo2-n">Snap a pic!</h2>
+            <p class="text primary">Place your South African ID Card face up on a dark, clean surface.
+            </p>
+
+            <ion-img class="idBookImg" src="assets/img/SAIDCardFront.png"></ion-img>
+
+            <p class="text primary">Take a clear picture making sure that your details are clearly visible.
+            </p>
+
+            <div class="confirm-buttons">
+                <ion-button  expand="full" class="doc-btn default" color="secondary" (click)="navigate('takePhoto')" class="doc-btn">
+                    <ion-icon color="light" slot="start" name="camera-outline"></ion-icon>
+                    <ion-label color="light">Take Photo</ion-label>
+                </ion-button>
+            </div>
+        </div>
+        <ion-button  expand="full" (click)="navigate('ID-options')" expand="full" fill="clear" size="small" type="button" class="returningUserLink">
+            Go back
+        </ion-button>
+    </ng-container>
+
+    <ng-container *ngIf="currentPage==='ID-card-page-2'">
+        <div class="infoblock">
+            <h2 class="Exo2-n">Snap a pic!</h2>
+            <p class="text primary">Flip your ID Card over to snap a photo of the back of the card.</p>
+
+
+            <ion-img class="idBookImg" src="assets/img/SAIDCardBack.png"></ion-img>
+
+            <p class="text primary">Take a clear picture making sure that all details are clearly visible.
+            </p>
+
+            <div class="confirm-buttons" style="margin-top: 1em;">
+                <ion-button  expand="full" class="doc-btn default" color="secondary" (click)="navigate('takePhoto')" class="doc-btn">
+                    <ion-icon color="light" slot="start" name="camera-outline"></ion-icon>
+                    <ion-label color="light">Take Photo</ion-label>
+                </ion-button>
+            </div>
+        </div>
+        <ion-button (click)="navigate('ID-options')" expand="full" fill="clear" size="small" type="button" class="returningUserLink">
+            Go back
+        </ion-button>
+    </ng-container>
+
+    <ng-container *ngIf="currentPage==='PoA-page'">
+        <div class="infoblock">
+            <h2 class="Exo2-n">Snap a pic!</h2>
+            <p class="text primary">Take a clear picture of your proof of residence document.</p>
+
+            <ion-img class="idBookImg" src="assets/img/SAIDCardBack.png"></ion-img>
+
+            <p class="text primary">This document must clearly show the issuing authority details, your name and surname, physical address, and the document date which must be less than three months ago.
+            </p>
+
+
+
+            <div class="confirm-buttons" style="margin-top: 1em;">
+                <ion-button  expand="full" class="doc-btn default" color="secondary" (click)="navigate('takePhoto')">
+                    <ion-icon color="light" slot="start" name="camera-outline"></ion-icon>
+                    <ion-label color="light">Take Photo</ion-label>
+                </ion-button>
+            </div>
+        </div>
+        <ion-button (click)="navigate('ID-options')" expand="full" fill="clear" size="small" type="button" class="returningUserLink">
+            Go back
+        </ion-button>
+    </ng-container>
+
+    <ng-container *ngIf="currentPage==='Selfie-page'">
+        <div class="infoblock">
+            <h2 class="Exo2-n">Snap a pic!</h2>
+            <p class="text primary">We need to prove that you are alive :-) </p>
+
+            <ion-img class="idBookImg" src="assets/img/SAIDCardBack.png"></ion-img>
+
+            <p class="text primary">Please take a selfie showing your face clearly. Your photo will be used to validate your identity with the South African department of home affairs database. This is a necessary requirement to protect Instavest from fraudsters, money launderers,
+                and politically exposed persons.
+            </p>
+
+            <div class="confirm-buttons" style="margin-top: 1em;">
+                <ion-button  expand="full" class="doc-btn default" color="secondary" (click)="navigate('takePhoto')">
+                    <ion-icon color="light" slot="start" name="camera-outline"></ion-icon>
+                    <ion-label color="light">Take Photo</ion-label>
+                </ion-button>
+            </div>
+        </div>
+        <ion-button (click)="navigate('ID-options')" expand="full" fill="clear" size="small" type="button" class="returningUserLink">
+            Go back
+        </ion-button>
+    </ng-container>
+
+    <ng-container *ngIf="currentPage==='Bank-page'">
+        <div class="infoblock">
+            <h2 class="Exo2-n">Snap a pic!</h2>
+            <p class="text primary">You have requested a withdrawal to your bank account. For your account security we need you to make sure that your money is paid to your own account.
+            </p>
+
+            <p class="text primary">Please provide us with a letter from you bank verifying your banking details.</p>
+
+            <div class="confirm-buttons" style="margin-top: 1em;">
+                <ion-button  expand="full" class="doc-btn default" color="secondary" (click)="navigate('takePhoto')">
+                    <ion-icon color="light" slot="start" name="camera-outline"></ion-icon>
+                    <ion-label color="light">Take Photo</ion-label>
+                </ion-button>
+            </div>
+        </div>
+        <ion-button (click)="navigate('ID-options')" expand="full" fill="clear" size="small" type="button" class="returningUserLink">
+            Go back
+        </ion-button>
+    </ng-container>
+
+    <ng-container *ngIf="currentPage==='Review-page'">
+        <div class="infoblock">
+            <h2 class="Exo2-n">Review</h2>
+            <p>Please check that the detail in the image is clearly visible. Tap the send button to upload this picture or tap back to try again.</p>
+            <ion-img class="idBookImg" [src]="photoB64Str ? photoB64Str : ''"></ion-img>
+
+            <div class="confirm-buttons" style="margin-top: 2em;">
+                <ion-button  expand="full" class="doc-btn alt" color="secondary" (click)="resetPhoto()" >
+                    <ion-icon color="light" slot="start" name="arrow-back-outline"></ion-icon>
+                    <ion-label color="light">Back</ion-label>
+                </ion-button>
+
+                <ion-button *ngIf="!showUploadSpinner"  expand="full" class="doc-btn default" color="secondary" (click)="navigate('upload')">
+                    <ion-icon color="light" slot="start" name="arrow-forward-outline"></ion-icon>
+                    <ion-label color="light">Send</ion-label>
+                </ion-button>
+
+                <ion-button *ngIf="showUploadSpinner"  expand="full" class="doc-btn default" color="secondary" disabled="true">
+                    <ion-label color="light">
+                        <ion-spinner color="light" name="dots" class="ion-text-center"></ion-spinner>
+                    </ion-label>
+                </ion-button>
+            </div>
+        </div>
+    </ng-container>
+</ion-content>

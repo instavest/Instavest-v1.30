@@ -1,0 +1,125 @@
+<ion-header class="af-none ">
+    <ion-toolbar class="header-bg">
+        <ion-buttons slot="start">
+            <ion-menu-button color="light"></ion-menu-button>
+        </ion-buttons>
+        <ion-title class="cs-title">Instavest Support</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="transparent" #content>
+
+    <ng-container *ngIf="supportListData == null">
+        <div style="width: 100%; margin: 1em 0; text-align: center;">
+            <ion-spinner color="light" name="dots"></ion-spinner>
+        </div>
+    </ng-container>
+
+    <ng-container *ngIf="supportListData != null">
+        <div class="infoblock ion-padding text-white" *ngIf="sending && showMessage && !showSkeleton">
+            <p style="text-align: center;">
+                <ion-spinner color="light" name="dots"></ion-spinner>
+            </p>
+        </div>
+
+        <div class="infoblock ion-padding text-white" *ngIf="!sending && showMessage">
+            <p>
+                Connect with Instavest support. Tap the
+                <ion-icon name="pencil"></ion-icon> icon below to start a conversation.
+            </p>
+        </div>
+
+        <!--<div *ngIf="!sending && !showMessage">-->
+        <ion-list *ngIf="supportListData.length > 0; else skeleton" lines="none" class="ion-no-padding cs-transparent-list">
+            <ion-item color="bg-none" class="share-list-item" *ngFor="let item of supportListData; let i = index;">
+                <ion-grid class="ion-no-padding">
+                    <ion-row (click)="open(i)">
+                        <ion-col size="3" class="list-item-share-action-btn ">
+                            {{ convertDate(item.msg[item.msg.length-1].datetime) | date:'d/M/yy': 'GMT+2': 'en-GB'}}
+                        </ion-col>
+                        <ion-col size="8" class="list-item-share-action-btn">
+                            Topic: {{ item.Header }}
+                        </ion-col>
+                        <ion-col size="1" class="text-center df ac jc">
+                            <ion-badge color="light" class="item-count-badge"><span style="color: #22486A">{{ item.msg.length
+                  }}</span>
+                            </ion-badge>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </ion-item>
+        </ion-list>
+        <!--</div>-->
+
+
+
+        <div *ngIf="!sending">
+            <ion-fab horizontal="end" vertical="bottom" slot="fixed">
+                <ion-fab-button color="light" size="small" (click)="open(-1)">
+                    <ion-icon name="pencil"></ion-icon>
+                </ion-fab-button>
+            </ion-fab>
+        </div>
+
+        <ion-fab horizontal="start" vertical="bottom" slot="fixed">
+            <ion-fab-button size="small" color="primary" [routerLink]="['/home']">
+                <ion-icon name="close"></ion-icon>
+            </ion-fab-button>
+        </ion-fab>
+    </ng-container>
+
+  <ng-container *ngIf="supportListData != null">
+    <div class="infoblock ion-padding text-white" *ngIf="sending && showMessage && !showSkeleton">
+      <p style="text-align: center;">
+        <ion-spinner color="light" name="dots"></ion-spinner>
+      </p>
+    </div>
+  
+    <div class="infoblock ion-padding text-white" *ngIf="!sending && showMessage">
+      <p>
+        Connect with Azuza support. Tap the <ion-icon name="pencil"></ion-icon> icon below to start a conversation.
+      </p>
+    </div>
+  
+    <!--<div *ngIf="!sending && !showMessage">-->
+    <ion-list *ngIf="supportListData.length > 0; else skeleton" lines="none"
+      class="ion-no-padding cs-transparent-list">
+      <ion-item color="bg-none" class="share-list-item" *ngFor="let item of supportListData; let i = index;">
+        <ion-grid class="ion-no-padding">
+          <ion-row (click)="open(i)">
+            <ion-col size="3" class="list-item-share-action-btn ">
+              {{ convertDate(item.msg[item.msg.length-1].datetime) | date:'d/M/yy': 'GMT+2': 'en-GB'}}
+            </ion-col>
+            <ion-col size="8" class="list-item-share-action-btn">
+              Topic: {{ item.Header }}
+            </ion-col>
+            <ion-col size="1" class="text-center df ac jc">
+              <ion-badge color="light" class="item-count-badge"><span style="color: #22486A">{{ item.msg.length }}</span>
+              </ion-badge>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+    </ion-list>
+    <!--</div>-->
+  
+  
+  
+    <div *ngIf="!sending">
+      <ion-fab horizontal="end" vertical="bottom" slot="fixed">
+        <ion-fab-button color="light" size="small" (click)="open(-1)">
+          <ion-icon name="pencil"></ion-icon>
+        </ion-fab-button>
+      </ion-fab>
+    </div>
+  
+    <ion-fab horizontal="start" vertical="bottom" slot="fixed">
+      <ion-fab-button size="small" color="secondary" [routerLink]="['/home']">
+        <ion-icon name="close"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+  </ng-container>
+
+
+
+</ion-content>

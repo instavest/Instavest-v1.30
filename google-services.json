@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "554633222415",
+    "project_id": "instavest-e43d8",
+    "storage_bucket": "instavest-e43d8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:554633222415:android:2e501cdd5f3677d4f6867a",
+        "android_client_info": {
+          "package_name": "com.instavest.demo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "554633222415-54ckudsr64po50ojrs3dnti6vmhv0o79.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDMOCYqBJF2Ko7n0b81ncH9FlHA-BnqbLE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "554633222415-54ckudsr64po50ojrs3dnti6vmhv0o79.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "554633222415-pt466tdg1ej2u5ud59ipq208sqqd0dpn.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.instavest.app",
+                "app_store_id": "1617784214"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

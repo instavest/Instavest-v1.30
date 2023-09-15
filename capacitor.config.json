@@ -1,0 +1,15 @@
+{
+    "appId": "com.instavest.demo",
+    "appName": "Instavest",
+    "webDir": "www",
+    "linuxAndroidStudioPath": "/opt/android-studio/bin/studio.sh",
+    "plugins": {
+        "SplashScreen": {
+            "launchAutoHide": true,
+            "backgroundColor": "#000000"
+        },
+        "PushNotifications": {
+            "presentationOptions": ["badge", "sound", "alert"]
+          }
+    }
+}

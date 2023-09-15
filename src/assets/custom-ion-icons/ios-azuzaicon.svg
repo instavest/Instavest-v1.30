@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   width="200"
+   height="200"
+   viewBox="0 0 52.916668 52.916668"
+   version="1.1"
+   id="svg8">
+  <defs
+     id="defs2" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     style="fill:#000000"
+     id="layer1"
+     transform="translate(0,-244.08334)">
+    <g
+       id="text933"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:64.38690948px;line-height:1.25;font-family:Arial;-inkscape-font-specification:Arial;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1.00604546"
+       aria-label="a">
+      <path
+         id="path880"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:64.38690948px;font-family:'Virgo 01';-inkscape-font-specification:'Virgo 01, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#ffffff;stroke-width:1.00604546"
+         d="m 7.6107011,295.72425 q -1.603385,0 -3.1124531,-0.78597 -1.4776293,-0.81742 -2.3264802,-2.32648 -0.8488508,-1.50907 -0.8488508,-3.17534 0,-1.63482 9.400237,-20.52961 9.400238,-18.89479 10.217649,-20.37242 0.817412,-1.50907 2.326481,-2.32648 1.509068,-0.84885 3.143892,-0.84885 1.634824,0 3.112453,0.84885 1.509068,0.81741 2.32648,2.32648 0.848851,1.47763 10.280527,20.37242 9.463115,18.89479 9.463115,20.52961 0,1.66627 -0.848851,3.17534 -0.848851,1.50906 -2.357919,2.32648 -1.509068,0.78597 -3.081014,0.78597 z M 35.02544,283.05436 26.411176,265.35425 17.765472,283.05436 Z" />
+    </g>
+  </g>
+</svg>

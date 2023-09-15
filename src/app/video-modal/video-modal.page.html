@@ -1,0 +1,14 @@
+<ion-header class="af-none" color="primary">
+  <ion-toolbar class="header-bg">
+    <ion-title class="cs-title">Instavest</ion-title>
+    <ion-buttons slot="end">
+        <ion-icon name="close" color="light" class="mr12" style="font-size: 24px;" (click)="dismiss()"></ion-icon>
+      </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+  <div class="video-container">
+    <iframe width="{{screenWidth}}" height="315" [src]="safeUrl" frameborder="0" allowfullscreen modestbranding="1"
+      playsinline="1" controls="1" listType="playlist" list="PL4fXfxNl22WF2WAopwwIKZDTaGkw3rPkp" rel="0">
+    </iframe>
+  </div>

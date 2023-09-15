@@ -1,0 +1,248 @@
+<ion-header class="af-none" *ngIf="showAccountList">
+    <ion-toolbar class="header-bg">
+        <ion-button icon-only slot="start" [routerLink]="['/home']">
+            <ion-icon color="light" name="arrow-back"></ion-icon>
+        </ion-button>
+        <ion-title class="cs-title">{{ walletName }}</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-header class="af-none" *ngIf="!showAccountList">
+    <ion-toolbar class="header-bg">
+        <ion-button icon-only slot="start" (click)="back()">
+            <ion-icon color="light" name="arrow-back"></ion-icon>
+        </ion-button>
+        <ion-title class="cs-title">{{ walletName }}</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+<ion-content>
+    <ng-template [ngIf]="showAccountList">
+        <div class="slides-heading">
+            <h3>Instavest Wealth Wallets</h3>
+        </div>
+
+        <div class="infoblock">
+            <p class="text-white ion-text-center"> A wealth wallet lets you group your assets, for example "Adam's shares" or "Sarah's retirement".
+            </p>
+        </div>
+
+        <ng-container *ngIf="!accountList">
+            <div style="width: 100%; margin: 1em 0; text-align: center;">
+                <ion-spinner color="light" name="dots"></ion-spinner>
+            </div>
+        </ng-container>
+
+        <!-- list accounts -->
+
+        <ng-container *ngIf="accountList">
+            <ng-container *ngIf="accountList.length < 1">
+                <div class="infoblock">
+                    <p class="text-white text-center">
+                        {{ noTransactionsMessage }}
+                    </p>
+                </div>
+            </ng-container>
+
+            <ng-container *ngIf="accountList.length > 0">
+                <ion-list lines="none" class="ion-no-padding cs-transparent-list">
+                    <ion-item color="bg-none" class="share-list-item" *ngFor="let wallet of accountList; let n = index" [ngStyle]="getBackgroundColor(n)">
+                        <ion-grid style="width: 100%">
+                            <ion-row>
+                                <ion-col size="11">
+                                    <span style="size: 10px; font-weight: bold; color: white;">{{ wallet.Name }}</span><br />
+                                    <span class="text-white" style="font-size: x-small; color: white;" (click)="copyToClipboard('Address', wallet.NodeAddress)">{{wallet.NodeAddress}}</span>
+                                    <ion-icon style="margin-left: 10px; color: white;" class="text-white smaller" name="clipboard-outline">
+                                    </ion-icon>
+                                </ion-col>
+                                <ion-col size="1">
+                                    <ion-icon color="light" class="text-white" name="ellipsis-vertical" (click)="showWalletOptions(n)">
+                                    </ion-icon>
+                                </ion-col>
+                            </ion-row>
+
+
+
+                            <div (click)="loadTransactionData(wallet.WalletId, false, n)">
+                                <div *ngFor="let item of wallet.Balance.Fiat; let i = index" style="padding-top: 0; padding-bottom: 0;">
+                                    <ion-row *ngIf="+item.Available > 0" class="text-white" style="padding-top: 0; padding-bottom: 0;">
+                                        <ion-col size="7" class="text-white" style="font-size: small; color: white; padding-top: 0; padding-bottom: 0;">
+                                            {{ item.CurrencyName }}
+                                        </ion-col>
+                                        <ion-col size="5" class="text-white" style="font-size: small; color: white; padding: 0 15px 0 auto; text-align: right;">
+                                            {{item.Available | currency : 'ZAR' : 'R' }}
+                                        </ion-col>
+                                    </ion-row>
+                                </div>
+
+                                <div *ngFor="let item of wallet.Balance.Asset; let i = index" style="padding-top: 0; padding-bottom: 0;">
+                                    <ion-row *ngIf="+item.Available > 0" class="text-white" style="font-size: small; color: white; padding-top: 0; padding-bottom: 0;">
+                                        <ion-col size="7" class="text-white" style="font-size: small; color: white; padding-top: 0; padding-bottom: 0;">
+                                            {{ item.CurrencyName }}
+                                        </ion-col>
+                                        <ion-col size="5" class="text-white" style="font-size: small; color: white; padding: 0 15px 0 auto; text-align: right;">
+                                            {{ item.Available | number : '0.0' }} shares
+                                        </ion-col>
+                                    </ion-row>
+                                    <ion-row *ngIf="+item.escrow_in > 0" class="text-white" style="font-size: small; color: white; padding-top: 0; padding-bottom: 0;">
+                                        <ion-col size="7" class="text-white" style="font-size: small; color: white; padding-top: 0; padding-bottom: 0;">
+                                            {{ item.CurrencyName }} <span style="font-size: xx-small">(Buy escrow)</span>
+                                        </ion-col>
+                                        <ion-col size="5" class="text-white" style="font-size: small; color: white; padding: 0 15px 0 auto; text-align: right;">
+                                            {{ item.escrow_in | number : '0.0' }} shares
+                                        </ion-col>
+                                    </ion-row>
+                                    <ion-row *ngIf="+item.escrow_out > 0" class="text-white" style="font-size: small; color: white; padding-top: 0; padding-bottom: 0;">
+                                        <ion-col size="7" class="text-white" style="font-size: small; color: white; padding-top: 0; padding-bottom: 0;">
+                                            {{ item.CurrencyName }} <span style="font-size: xx-small">(Sell escrow)</span>
+                                        </ion-col>
+                                        <ion-col size="5" class="text-white" style="font-size: small; color: white; padding: 0 15px 0 auto; text-align: right;">
+                                            {{ item.escrow_out | number : '0.0' }} shares
+                                        </ion-col>
+                                    </ion-row>
+                                </div>
+
+                                <div *ngFor="let item of wallet.Balance.Native; let i = index" style="padding-top: 0; padding-bottom: 0;">
+                                    <ion-row *ngIf="+item.Available > 0" class="text-white" style="font-size: small; color: white; padding-top: 0; padding-bottom: 0;">
+                                        <ion-col size="7" class="text-white" style="font-size: small; color: white; padding-top: 0; padding-bottom: 0;">
+                                            Frax Coin
+                                        </ion-col>
+                                        <ion-col size="5" class="text-white" style="font-size: small; color: white; padding: 0 15px 0 auto; text-align: right;">
+                                            {{ item.Available }} FRX
+                                        </ion-col>
+                                    </ion-row>
+                                </div>
+                            </div>
+
+                        </ion-grid>
+                    </ion-item>
+                </ion-list>
+            </ng-container>
+        </ng-container>
+    </ng-template>
+
+
+    <ng-template [ngIf]="showTransactionList">
+        <ion-list lines="none" class="ion-no-padding cs-transparent-list">
+            <ion-item color="bg-none" class="h30">
+                <ion-grid class="ion-no-padding" style="height: 2em;">
+                    <ion-row>
+                        <ion-col size="12" class="list-item-share-action-btn df ac" (click)="emailMyStatement()">
+                            <div class="shares-user-info-item ion-float-start">
+                                <ion-icon name="click" class="af-icon"></ion-icon>
+                                <span class="small ml5">Tap item for detail</span>
+                            </div>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </ion-item>
+        </ion-list>
+
+        <!-- Transaction History View -->
+        <ng-container *ngIf="!eventKeys ">
+            <div style="width: 100%; margin: 1em 0; text-align: center;">
+                <ion-spinner color="light" name="dots"></ion-spinner>
+            </div>
+        </ng-container>
+
+        <ng-container *ngIf="showNoTransactionsMessage">
+            <div class="infoblock">
+                <p class="text-white text-center">
+                    {{ noTransactionsMessage }}
+                </p>
+            </div>
+        </ng-container>
+
+        <ng-container *ngIf="eventKeys">
+            <ng-container *ngFor="let event of eventKeys">
+                <div class="slides-heading accent">
+                    <h3>{{ event | titlecase }}</h3>
+                </div>
+                <ion-item-group lines="full" class="group-list">
+                    <ion-item class="list-bg" lines="full" *ngFor="let item of formattedEventList[event]; let i = index" [ngStyle]="getBackgroundColor(i)">
+                        <ion-label>
+                            <ion-grid class="ion-no-padding">
+                                <ion-row>
+                                    <ion-col size="12">
+                                        <ion-grid class="ion-no-padding" (click)="toggleDetail(event, i)">
+                                            <ion-row no-padding>
+                                                <ion-col size="12" class="list-item-share-action-btn  ion-text-wrap" no-padding>
+                                                    <div style="font-size: small; color: white; padding-top: 0; padding-bottom: 0;">
+                                                        {{ item.trxDescription }}
+                                                    </div>
+                                                </ion-col>
+                                            </ion-row>
+                                            <ion-row style="padding: 0.5em;">
+                                                <ion-col size="6" class="text-white ion-text-wrap ion-text-left">
+                                                    <span class="ion-float-left smaller">
+                            {{ item.trxTimestamp | date:'short':'GMT+2':'en-ZA' }}
+                          </span>
+                                                </ion-col>
+                                                <ion-col size="6" class="text-white ion-text-wrap ion-text-right" no-padding>
+                                                    <span class="ion-float-right small"><b>{{ item.trxValue }}</b></span>
+                                                </ion-col>
+                                            </ion-row>
+                                        </ion-grid>
+
+                                        <ion-grid class="ion-no-padding" *ngIf="item.showDetail">
+                                            <ion-row *ngIf="item.fromAddress" no-padding>
+                                                <ion-col size="12" class="ion-text-left" no-padding>
+                                                    <span class="smaller">
+                            {{ item.fromLabel }}
+                          </span>
+                                                </ion-col>
+                                            </ion-row>
+                                            <ion-row no-padding>
+                                                <ion-col size="12" class="ion-text-center ion-text-wrap">
+                                                    <span class="small">
+                            {{ item.fromAddress }}
+                          </span>
+                                                </ion-col>
+                                            </ion-row>
+                                            <ion-row *ngIf="item.toAddress" no-padding>
+                                                <ion-col size="12" class="ion-text-left" no-padding>
+                                                    <span class="smaller">
+                            {{ item.toLabel }}
+                          </span>
+                                                </ion-col>
+                                            </ion-row>
+                                            <ion-row no-padding>
+                                                <ion-col size="12" class="ion-text-center ion-text-wrap">
+                                                    <span class="smaller">
+                            {{ item.toAddress }}
+                          </span>
+                                                </ion-col>
+                                            </ion-row>
+                                            <ion-row padding-vertical (click)="exploreBlockchain(item.trxId)">
+                                                <ion-col size="12" class="ion-text-left" no-padding>
+                                                    <span class="smaller">
+                            Ref:</span>
+                                                </ion-col>
+                                            </ion-row>
+                                            <ion-row no-padding (click)="exploreBlockchain(item.trxId)">
+                                                <ion-col size="11" class="ion-text-center ion-text-wrap">
+                                                    <span class="small ion-text-wrap">
+                            {{ item.trxId }}
+                          </span>
+                                                </ion-col>
+                                                <ion-col size="1" class="df ac jc">
+                                                    <ion-icon name="link-outline" color="light" style="transform: rotate(130deg);"></ion-icon>
+                                                </ion-col>
+                                            </ion-row>
+                                        </ion-grid>
+                                    </ion-col>
+                                </ion-row>
+                            </ion-grid>
+                        </ion-label>
+                    </ion-item>
+                </ion-item-group>
+            </ng-container>
+        </ng-container>
+    </ng-template>
+
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed" #fab *ngIf="showAccountList">
+        <ion-fab-button color="light" (click)="addWallet()" size="small">
+            <ion-icon name="add"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
+</ion-content>

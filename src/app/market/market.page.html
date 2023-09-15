@@ -1,0 +1,444 @@
+<ion-header class="af-none ">
+    <ion-toolbar class="header-bg">
+        <ion-buttons slot="start">
+            <ion-menu-button color="light"></ion-menu-button>
+        </ion-buttons>
+        <ion-title class="cs-title ion-text-wrap">Market Place</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="transparent">
+
+    <!-- page tabs -->
+    <ion-grid class="ion-no-padding">
+        <ion-row class="tabRow ion-no-padding">
+
+            <ion-col class="tabItem left" [ngClass]="selectedTab === 'sellers' ? 'selected' : ''" (click)="togglePageTab('market')">
+                <ion-label [ngClass]="selectedTab === 'sellers' ? 'selected' : ''" class="Exo2-n">
+                    Market
+                </ion-label>
+            </ion-col>
+
+            <ng-container *ngIf="allMyPurchaseOrderData">
+                <ion-col class="tabItem right" [ngClass]="selectedTab === 'sellers' ? '' : 'selected dim'" (click)="togglePageTab('sellers')">
+                    <ion-label [ngClass]="selectedTab === 'sellers' ? '' : 'selected'" class="Exo2-n">
+                        My Trades
+                    </ion-label>
+                </ion-col>
+            </ng-container>
+
+            <ng-container *ngIf="!allMyPurchaseOrderData && !loadingMyOffersToPurchaseList">
+                <ion-col class="tabItem right">
+                    <ion-label class="Exo2-n disabled">
+                        My Trades
+                    </ion-label>
+                </ion-col>
+            </ng-container>
+
+            <ng-container *ngIf="!allMyPurchaseOrderData && loadingMyOffersToPurchaseList">
+                <ion-col class="tabItem right">
+                    <ion-spinner style="max-height: 1em;" color="light" name="dots"></ion-spinner>
+                </ion-col>
+            </ng-container>
+
+
+        </ion-row>
+    </ion-grid>
+
+
+    <ng-container *ngIf="showSpinner">
+        <div style="width: 100%; margin: 1em 0; text-align: center;">
+            <ion-spinner color="light" name="dots"></ion-spinner>
+        </div>
+    </ng-container>
+
+    <ng-container *ngIf="marketListData && marketListData.length > 0">
+        <!-- SPVs View -->
+        <ng-container *ngIf="selectedTab === 'sellers' && view === 'all-spvs'">
+            <!-- loop start -->
+            <ion-list lines="none" class="ion-no-padding cs-transparent-list">
+                <ion-item *ngFor="let item of marketListData; let idx = index" color="bg-none" class="share-list-item" (click)="fetchAllData(item.Asset)">
+                    <ion-label class="ion-text-wrap">
+                        <span class="offer-left">{{ item.Name }}</span>&nbsp;
+                        <span class="offer-amount">({{item.Asset}})</span>
+                    </ion-label>
+                    <ion-button style="border: none !important;" fill="clear" size="small" slot="end" class="ion-text-center">
+                        <ion-label>
+                            {{ item.Count }}
+                            <br />
+                            <span class="offer-label">Open ads</span>
+                        </ion-label>
+                    </ion-button>
+                </ion-item>
+            </ion-list>
+        </ng-container>
+        <!-- END SPV LIST-->
+    </ng-container>
+
+
+    <!-- All Sell Order View -->
+    <ng-container *ngIf="selectedTab === 'sellers' && view === 'allsellorders'">
+
+        <ion-item lines="none" color="bg-none" class="share-list-item">
+            <ion-label>
+                <div class="offer-item ">
+                    <div class="offer-section user">
+                        <span class="offer-left">Your</span><br />
+                        <span class="offer-amount">ad</span>
+                    </div>
+                    <div class="offer-section content">
+                        <span class="offer-left">Shares</span><br />
+                        <span class="offer-amount">for sale</span>
+                    </div>
+                    <div class="offer-section content">
+                        <span class="offer-left">Price</span><br />
+                        <span class="offer-amount">per share</span>
+                    </div>
+                    <div class="offer-section content">
+                        <span class="offer-left">Total</span><br />
+                        <span class="offer-amount">price</span>
+                    </div>
+                </div>
+            </ion-label>
+        </ion-item>
+
+        <ng-container>
+            <div class="offer-heading">
+                <div class="slides-heading heading-row">
+                    <ion-icon name="trending-up-outline" color="light" class="market"></ion-icon>
+                    <h4 class="list-header">{{ allSellOrderData[allSellOrderData.length-1].Name }}&nbsp;<span class="offer-amount">({{ allSellOrderData[allSellOrderData.length-1].pair }})</span>
+                    </h4>
+                </div>
+            </div>
+
+            <ion-list lines="none" class="ion-no-padding cs-transparent-list">
+                <ion-item-sliding *ngFor="let item of allSellOrderData; let idx = index;" color="bg-none" [ngStyle]="getBackgroundColor(idx)" class="share-list-item" #sliding1>
+                    <ion-item-options *ngIf="myMemberID === item.userid" side="start">
+                        <ion-item-option color="danger" (click)="handleRowClick(item.uid, item.userid, idx); sliding1.close()">
+                            Withdraw
+                        </ion-item-option>
+                    </ion-item-options>
+                    <ion-item [ngStyle]="getBackgroundColor(idx)" [ngClass]="myMemberID === item.userid ? 'withdraw-border':'offer-border'">
+                        <ion-label>
+                            <div class="offer-item">
+                                <div class="offer-section user" style="text-align: center;">
+                                    <ng-container *ngIf="myMemberID === item.userid">
+                                        <ion-icon name="star-outline" color="light"></ion-icon>
+                                    </ng-container>
+                                    <ng-container *ngIf="(myMemberID !== item.userid) && item.openoffer">
+                                        <ion-icon name="chatbubbles-outline"></ion-icon>
+                                    </ng-container>
+                                </div>
+                                <div class="offer-section content">
+                                    <span class="offer-left">{{ item.left | number : '0.0-8' }}</span>
+                                </div>
+                                <div class="offer-section content">
+                                    <span class="offer-left">{{ item.price | currency : 'ZAR': 'R' }}</span>
+                                </div>
+                                <div class="offer-section content">
+                                    <span class="offer-left">{{ item.total | currency : 'ZAR': 'R' }}</span>
+                                </div>
+                            </div>
+                        </ion-label>
+                    </ion-item>
+                    <ion-item-options *ngIf="myMemberID !== item.userid && !item.openoffer" side="end">
+                        <!--<ion-item-option color="primary" (click)="handleRowClick(item.uid, item.userid, idx)">
+            Open
+          </ion-item-option>-->
+                        <ion-item-option color="success" (click)="handleRowClick(item.uid, item.userid, idx); sliding1.close()">
+                            Offer
+                        </ion-item-option>
+                    </ion-item-options>
+                </ion-item-sliding>
+            </ion-list>
+        </ng-container>
+    </ng-container>
+
+   
+
+    <!-- My Trades View -->
+    <ng-container *ngIf="selectedTab != 'sellers' && view === 'mytrades'">
+
+       
+
+        <ng-container *ngIf="subview === 'nooffers'">
+            <!-- starts my buy offers made -->
+            <ion-item lines="none" class="info-item">
+                <ion-label class="trade-note ion-text-wrap">
+                    Get started by creating a sell order or make an offer on shares that someone else is selling.
+                </ion-label>
+            </ion-item>
+        </ng-container>
+
+        <ng-container *ngIf="subview === 'gotoffers'">
+            <!-- starts my buy offers made -->
+
+            <ng-container *ngIf="showNavHint">
+                <ion-item lines="none" class="info-item">
+                    <ion-icon style="margin: unset;" slot="start" name="arrow-back-circle-outline" color="light" size="small">
+                    </ion-icon>
+                    <ion-label class="trade-note ion-text-wrap">
+                        Slide items left and right to see trade options.
+                    </ion-label>
+                    <ion-icon style="margin: unset;" slot="end" name="arrow-forward-circle-outline" color="light" size="small">
+                    </ion-icon>
+                </ion-item>
+            </ng-container>
+
+            <div class="stickyController">
+
+                <div class="stickyContainer">
+                    <div class="offer-heading">
+                        <div class="slides-heading heading-row" style="margin-top: 1.25em;">
+                            <ion-icon name="trending-up-outline" color="light" class="market"></ion-icon>
+                            <h3>Offers you received</h3>
+                        </div>
+
+                        <ion-item lines="none" color="bg-none" class="share-list-item">
+                            <ion-label>
+                                <div class="offer-item">
+                                    <div class="offer-section user">
+                                        <span class="offer-left">New</span><br />
+                                        <span class="offer-amount">offer</span>
+                                    </div>
+                                    <div class="offer-section content">
+                                        <span class="offer-left">Shares</span><br />
+                                        <span class="offer-amount">for sale</span>
+                                    </div>
+                                    <div class="offer-section content">
+                                        <span class="offer-left">Price</span><br />
+                                        <span class="offer-amount">per share</span>
+                                    </div>
+                                    <div class="offer-section content">
+                                        <span class="offer-left">Offers</span><br />
+                                        <span class="offer-amount">received</span>
+                                    </div>
+                                </div>
+                            </ion-label>
+                        </ion-item>
+                    </div>
+                    <ng-container *ngFor="let so of allMySellOrderData; let index1 = index;">
+                        <div class="selloffer-heading">
+                            <h4 class="list-header">{{ so.data[0].Name }}&nbsp;<span class="offer-amount">({{ so.pair }})</span>
+                            </h4>
+                        </div>
+                        <ion-list lines="none" class="ion-no-padding cs-transparent-list">
+                            <ng-container *ngFor="let item of allMySellOrderData[index1].data; let index2 = index;">
+                                <ion-item-sliding *ngIf="item.offers && item.offers.length > 0" color="bg-none" class="share-list-item" #sliding3>
+                                    <ion-item-options side="start">
+                                        <ion-item-option color="danger" (click)="confirmCancelMyOffer(item.uid, item.asset); sliding3.close()">Withdraw
+                                        </ion-item-option>
+                                    </ion-item-options>
+                                    <ion-item color="bg-none" class="share-list-item withdraw-border" [ngStyle]="getBackgroundColor(index2)" [ngClass]="(item.offers && item.offers.length > 0) ? 'offer-border' : ''" (click)="(item.offers && item.offers.length > 0) ? showSellItemOffers(item.uid, item.userid, index1, index2) : void">
+                                        <ion-label>
+                                            <div class="offer-item">
+                                                <div class="offer-section user" style="text-align: center;">
+                                                    <ng-container *ngIf="item.ResponseCount && ((+item.ResponseCount.open) > 0) && (item.offers[0].Counter[0].BS === 'B')">
+                                                        <ion-icon name="star" color="success" size="small"></ion-icon>
+                                                    </ng-container>
+                                                </div>
+                                                <div class="offer-section content">
+                                                    <span class="offer-left">{{ item.left | number : '0.0-8' }}</span>
+                                                </div>
+                                                <div class="offer-section content">
+                                                    <span class="offer-left">{{ item.price | currency : 'ZAR': 'R' }}</span>
+                                                </div>
+                                                <div class="offer-section content">
+                                                    <span class="offer-left">{{ item.ResponseCount.open }}</span>
+                                                </div>
+                                            </div>
+                                        </ion-label>
+                                    </ion-item>
+
+                                    <ng-container>
+                                        <ion-item-options *ngIf="item.offers && item.offers.length > 0" side="end">
+                                            <ion-item-option color="success" (click)="showSellItemOffers(item.uid, item.userid, index1, index2);  sliding3.close();">
+                                                Open
+                                            </ion-item-option>
+                                        </ion-item-options>
+                                    </ng-container>
+                                </ion-item-sliding>
+                            </ng-container>
+                        </ion-list>
+                    </ng-container>
+                </div>
+
+                <div class="stickyContainer">
+                    <div class="offer-heading">
+                        <div class="slides-heading heading-row" style="margin-top: 1.25em;">
+                            <ion-icon name="trending-up-outline" color="light" class="market"></ion-icon>
+                            <h3>Offers you made</h3>
+                        </div>
+
+                        <ion-item lines="none" color="bg-none" class="share-list-item" style="border-top: 1px solid rgba(255,255,255,0.175)">
+                            <ion-label>
+                                <div class="offer-item ">
+                                    <div class="offer-section user">
+                                        <span class="offer-left">List</span><br />
+                                        <span class="offer-amount">price</span>
+                                    </div>
+                                    <div class="offer-section content">
+                                        <span class="offer-left">Shares</span><br />
+                                        <span class="offer-amount">wanted</span>
+                                    </div>
+                                    <div class="offer-section content">
+                                        <span class="offer-left">Price</span><br />
+                                        <span class="offer-amount">offered</span>
+                                    </div>
+                                    <div class="offer-section content">
+                                        <span class="offer-left">Counter</span><br />
+                                        <span class="offer-amount">received</span>
+                                    </div>
+                                </div>
+                            </ion-label>
+                        </ion-item>
+                    </div>
+                    <ng-container *ngFor="let otp of allMyPurchaseOrderData; let index1 = index;">
+                        <div class="selloffer-heading">
+                            <h4 class="list-header">{{ otp.data[0].Name }}&nbsp;<span class="offer-amount">({{ otp.pair }})</span>
+                            </h4>
+                        </div>
+                        <ion-list lines="none" class="ion-no-padding cs-transparent-list">
+                            <ng-container *ngFor="let item of allMyPurchaseOrderData[index1].data; let index2 = index;">
+                                <ion-item-sliding color="bg-none" class="share-list-item" #sliding2>
+                                    <ion-item-options side="start">
+                                        <ion-item-option color="danger" (click)="confirmCancelMyOffer(item.uid, index1, index2, item.asset); sliding2.close()">
+                                            Withdraw
+                                        </ion-item-option>
+                                    </ion-item-options>
+                                    <ion-item [ngStyle]="getBackgroundColor(index2)" class="withdraw-border" [ngClass]="( item.Counter && item.Counter.length > 1 && item.Counter[0].BS !== 'B') ? 'offer-border' : ''">
+                                        <ion-label>
+                                            <div class="offer-item">
+                                                <div class="offer-section user" style="text-align: center;">
+                                                    <span class="offer-left"> {{ item.price | currency : 'ZAR': 'R' }}</span>
+                                                </div>
+                                                <div class="offer-section content">
+                                                    <span class="offer-left">{{ item.amount | number : '0.0-8' }} </span>
+                                                    <br /><span class="offer-amount">of {{ item.left | number : '0.0-8' }}</span>
+                                                </div>
+                                                <div class="offer-section content">
+                                                    <span class="offer-left">{{ getBuyerOfferString(index1, index2, 'left') }}</span>
+                                                </div>
+                                                <div class="offer-section content">
+                                                    <span class="offer-left">{{ getSellerCounterString(index1, index2, 'left') }}</span>
+                                                </div>
+                                            </div>
+                                        </ion-label>
+                                    </ion-item>
+
+                                    <!-- Options only shown if Counter offers > 1 (Initial OTP and last counter is first Counter item) -->
+                                    <!-- item.Counter[0] contains the latest bid. If latest bid belongs to buyer, don't show. This is offers I made (i.e. that buyer made) -->
+                                    <ng-container *ngIf="item.Counter && item.Counter.length > 1 && item.Counter[0].BS !== 'B'">
+                                        <ion-item-options side="end">
+                                            <ion-item-option color="primary" (click)="showBuyerCounterForm(item.uid, index1, index2); sliding2.close()">Counter
+                                            </ion-item-option>
+                                            <ion-item-option color="success" (click)="showBuyerAcceptForm(item.uid, item.userid, index2); sliding2.close()">Accept
+                                            </ion-item-option>
+                                        </ion-item-options>
+                                    </ng-container>
+                                </ion-item-sliding>
+                            </ng-container>
+                        </ion-list>
+                    </ng-container>
+                </div>
+
+
+            </div>
+        </ng-container>
+        <!-- ends buy offers made -->
+
+        <!-- starts offers received on specific sell orders -->
+        <ng-container *ngIf="offersOnSellorderList && subview === 'showoffersonsellorder'">
+
+            <div class="slides-heading heading-row" style="margin-top: 1.25em;">
+                <ion-icon name="trending-up-outline" color="light" class="market"></ion-icon>
+                <h3>{{ currentSPVName }}&nbsp;
+                    <span class="offer-amount">({{ offersOnSellorderList[sellorderIndex].pair }})</span>
+                </h3>
+            </div>
+
+            <ion-item lines="none" color="bg-none" class="share-list-item">
+                <ion-label>
+                    <div class="offer-item ">
+                        <div class="offer-section content">
+                            <span class="offer-left">Your</span><br />
+                            <span class="offer-amount">current</span>
+                        </div>
+                        <div class="offer-section content">
+                            <span class="offer-left">Shares</span><br />
+                            <span class="offer-amount">wanted</span>
+                        </div>
+                        <div class="offer-section content">
+                            <span class="offer-left">Price</span><br />
+                            <span class="offer-amount">offered</span>
+                        </div>
+                        <div class="offer-section content">
+                            <span class="offer-left">Deal</span><br />
+                            <span class="offer-amount">total</span>
+                        </div>
+                    </div>
+                </ion-label>
+            </ion-item>
+            <ion-list lines="none" class="ion-no-padding cs-transparent-list">
+                <ion-item-sliding *ngFor="let item of offersOnSellorderList; let idx = index;" color="bg-none" class="share-list-item" #sliding4>
+                    <ion-item-options side="start">
+                        <ion-item-option color="danger" (click)="confirmCancelMyOffer(item.uid, idx, item.asset); sliding4.close()">
+                            Reject
+                        </ion-item-option>
+                    </ion-item-options>
+                    <ion-item color="bg-none" class="share-list-item" [ngStyle]="getBackgroundColor(idx)">
+                        <ion-label>
+                            <div class="offer-item">
+                                <div class="offer-section content" style="text-align: center;">
+                                    <span class="offer-left">{{ formatDecimalNumber(item.lastselleroffer, 'left') }}</span>
+                                    <!--<br /><span class="offer-amount">{{ formatDecimalNumber(item.lastselleroffer, 'right') }}</span>-->
+                                </div>
+                                <div class="offer-section content">
+                                    <span class="offer-left">{{ item.amount | number : '0.0-8' }}</span>
+                                </div>
+                                <div class="offer-section content">
+                                    <span class="offer-left">{{ formatDecimalNumber(item.lastbuyeroffer, 'left') }}</span>
+                                    <!--<br /><span class="offer-amount">{{ formatDecimalNumber(item.lastbuyeroffer, 'right') }}</span>-->
+                                </div>
+                                <div class="offer-section content">
+                                    <span class="offer-left">{{ (+(item.lastbuyeroffer) * +(item.amount)) | currency : 'ZAR': 'R'
+                    }}</span>
+                                </div>
+                            </div>
+                            <div class="offer-item footer-row">
+                                <div *ngIf="item.Counter[0].BS === 'B'">
+                                    Waiting seller response
+                                </div>
+                                <div *ngIf="item.Counter[0].BS === 'S'">
+                                    Waiting buyer response
+                                </div>
+                            </div>
+
+                        </ion-label>
+                    </ion-item>
+                    <ion-item-options side="end" *ngIf="item.Counter[0].BS === 'B'">
+                        <!-- Seller will only see this if B has made last offer -->
+                        <ion-item-option color="primary" (click)="showCounterForm(item.uid, item.userid, idx); sliding4.close()">
+                            Counter
+                        </ion-item-option>
+                        <ion-item-option color="success" (click)="showBuyerAcceptForm(item.uid, item.userid, idx); sliding4.close()">Accept
+                        </ion-item-option>
+                    </ion-item-options>
+                </ion-item-sliding>
+            </ion-list>
+
+            <ion-button (click)="subview='gotoffers'" expand="full" fill="clear" size="small" style="--border-width: 0!important; margin-top: 2em; color: white;" type="button" class="returningUserLink">
+                Back
+                <ion-icon slot="start" name="arrow-back-circle-outline" color="white"></ion-icon>
+            </ion-button>
+
+            <div class="infoblock mt20 mb0">
+                <p class="text-white trade-note">
+                    <ion-icon name="compass" color="white"></ion-icon> Slide items left and right to see trade options. Tap 'My sell orders' to return to your list of sell orders.
+                </p>
+            </div>
+        </ng-container>
+        <!-- ends buy offers made -->
+    </ng-container>
+
+</ion-content>

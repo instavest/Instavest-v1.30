@@ -1,0 +1,108 @@
+<ion-app>
+    <ion-split-pane contentId="main-content" when="min-width:10500px">
+        <ion-menu contentId="main-content" type="overlay" menuId="main" id="main" class="menu-bg">
+            <ion-header>
+                <ion-toolbar class="user-profile">
+
+                    <div class="user-profile">
+                        <ion-list>
+                            <ion-avatar>
+                                <img src="assets/img/instavest_logo_w_250x47.png">
+                            </ion-avatar>
+                        </ion-list>
+                    </div>
+                </ion-toolbar>
+            </ion-header>
+
+            <ion-content class="menu">
+                <div class="menu-inner">
+                    <ion-list class="ion-no-padding cs-menu transparent">
+
+                        <ion-button slots="start" name="start" expand="block" class="menu-btn" menuClose
+                            (click)="openHomePage()">
+                            <div class="ion-btton-left">
+                                <ion-icon name="home" class="menu-icon"></ion-icon>
+                                Home
+                            </div>
+                        </ion-button>
+
+                        <ion-button slots="start" name="start" expand="block" class="menu-btn" menuClose
+                            (click)="openDepositPage()">
+                            <div class="ion-btton-left">
+                                <ion-icon name="wallet" class="menu-icon"></ion-icon>
+                                Deposit money
+                            </div>
+                        </ion-button>
+
+                        <ion-button class="menu-btn" expand="block" menuClose (click)="openTransactionHistory()">
+                            <div class="ion-btton-left">
+                                <ion-icon name="list" class="menu-icon"></ion-icon>
+                                My shares
+                            </div>
+                        </ion-button>
+
+                        <ion-button class="menu-btn" expand="block" menuClose (click)="openTransferFunds()">
+                            <div class="ion-btton-left">
+                                <ion-icon name="arrow-redo" class="menu-icon"></ion-icon>
+                                Manage shares
+                            </div>
+                        </ion-button>
+
+                        <ion-button class="menu-btn" expand="block" menuClose (click)="openOTCMarketPlace()">
+                            <div class="ion-btton-left">
+                                <ion-icon name="trending-up-outline" class="menu-icon market"></ion-icon>
+                                Market place
+                            </div>
+                        </ion-button>
+                    </ion-list>
+                </div>
+            </ion-content>
+
+            <ion-footer no-shadow class="menu-footer ion-no-padding">
+                <ion-list class="ion-no-padding cs-menu">
+                    <ion-button menuClose expand="block" class="ion-no-margin menu-btn" (click)="openReward()">
+                        <div class="ion-btton-left">
+                            <ion-icon name="people" class="menu-icon"></ion-icon>
+                            Refer 4 Reward
+                        </div>
+                    </ion-button>
+                    <ion-button menuClose expand="block" class="ion-no-margin menu-btn" (click)="openSupport()">
+                        <div class="ion-btton-left">
+                            <ion-icon name="help-buoy" class="menu-icon"></ion-icon>
+                            Get support
+                        </div>
+                    </ion-button>
+
+                    <ion-button menuClose expand="block" class="ion-no-margin menu-btn" (click)="openAboutPage()">
+                        <div class="ion-btton-left">
+                            <ion-icon name="information-circle" class="menu-icon"></ion-icon>
+                            About Instavest
+                        </div>
+                    </ion-button>
+
+                    <div style="display: inline-block; width: 100%;">
+                        <div style="width: 50%; float: left">
+                            <ion-button menuClose expand="block" style="border-bottom: none;"
+                                class="ion-no-margin menu-btn" (click)="openAccountSetting()">
+                                <div class="ion-btton-left">
+                                    <ion-icon name="settings" class="menu-icon"></ion-icon>
+                                    Preferences
+                                </div>
+                            </ion-button>
+                        </div>
+                        <div style="max-width: 49%; float: right; padding-right: 10px;">
+                            <ion-button menuClose expand="block" style="float:right; border-bottom: none;"
+                                class="ion-no-margin menu-btn last" (click)="logout()">
+                                <div class="ion-btton-right">
+                                    <ion-icon name="power" size="small"></ion-icon>
+                                </div>
+                            </ion-button>
+                        </div>
+                    </div>
+
+                </ion-list>
+            </ion-footer>
+        </ion-menu>
+        <ion-router-outlet id="main-content" main></ion-router-outlet>
+    </ion-split-pane>
+</ion-app>

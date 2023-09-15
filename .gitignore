@@ -1,0 +1,9 @@
+node_modules
+android
+ios
+.DS_Store
+.npmrc
+.vscode/*
+README.md
+package-lock.json
+LICENSE

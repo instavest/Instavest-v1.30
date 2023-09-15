@@ -1,0 +1,230 @@
+:host(.ion-color) .item-native, :host(.ion-color) .item-inner
+{
+    border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+.trades-heading{
+    margin-top: 1.5em;
+}
+
+.tabRow{
+    border-bottom: 1px solid rgba(255,255,255,0.175);
+
+    .tabItem{
+        padding: 0.5em 2em;
+        border: 0px;
+
+        &.left{
+            text-align: right;
+            border-right: 1px;
+        }
+        &.right{
+            text-align: left;
+        }
+        &.selected{
+            background-color: rgba(255,255,255, 0.25);
+        }
+
+        &.dim{
+            background-color: rgba(255,255,255, 0.1) !important;
+        }
+
+        ion-label.disabled{
+            color: rgba(192,192,192,0.4) !important;
+        }
+    }
+}
+
+ion-button.market-action{
+    text-transform: none; 
+    --border-width: 1px; 
+    --border-color: rgba(255,  255,  255, 0.125); 
+    color: white;
+
+    &.cancel{
+        --border-color: rgba(235,  68,  90, 0.225); 
+    }
+}
+
+ion-item-option{
+    text-transform: none; 
+}
+
+.trade-note{
+    font-size: 0.85em;
+    text-align: center;
+}
+
+.info-item{
+    margin: 1.5em 1em 0;
+    border: 1px solid rgba(255,255,255,0.175);
+    border-radius: 5px; 
+}
+
+ion-icon::slotted(ion-icon[slot="start"]){
+    margin-right: unset;
+}
+
+.slides-heading{
+    
+    h3{
+        padding: unset;
+    }
+
+    h4.list-header{
+        border-bottom: none;
+        font-size: 0.85em;
+    }
+
+    &.h4{
+        width: 100%;
+        font-size: 0.85em;
+        border-bottom: 1px solid rgba(255,255,255,0.175);
+    }
+
+    &.heading-row{
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+
+        ion-icon{
+            margin: 0 0.5em;
+            background: rgba(255,255,255,0.175);;
+            padding: 5px;
+            border-radius: 50%;
+        }
+    }
+}
+
+.stickyController{
+    display: flex;
+    flex-direction: column;
+    /* gap: 1em; */
+}
+
+.stickyContainer{
+	float:left; 
+	margin-top:0px;
+	height:100%;
+    width:100%;
+    
+    .offer-heading{
+        position: sticky;
+        top: 0;
+        z-index: 10000;
+        background: #000015;
+    }
+}
+
+.trade-heading{
+    margin-top: 1.5em; 
+    border-top: 1px solid white;
+    border-bottom: 1px solid white;
+}
+
+.offer-border{
+    border-right: 4px solid var(--ion-color-success);
+}
+
+.withdraw-border{
+    border-left: 4px solid var(--ion-color-danger);
+}
+
+.selloffer-heading{
+    font-size: 0.85em;
+    padding-left: 1em;
+    margin: 1em 0;
+}
+
+.share-list-item{
+
+    .offer-heading{
+        position: sticky;
+        top: 3em;
+    }
+
+    .offer-left{
+        font-size: 0.9em; 
+        text-transform: none;
+    }
+
+    .offer-amount{
+        font-size: 0.75em; 
+        text-transform: none;
+    }
+
+    .offer-label{
+        font-size: 0.65em; 
+        text-transform: none;
+    }
+}
+
+
+.offer-item{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+
+    &.heading-row{
+        width: 100%;
+        font-size: 0.75em;
+        margin: 0.1em 0 0.5em 0;
+    }
+
+    &.footer-row{
+        width: 100%;
+        font-size: x-small;
+        margin: 0.75em 0 0 0;
+        justify-content: center;
+    }
+
+    &.swipe-left{
+        width: 1%;
+        border-left: 2px solid var(--ion-color-danger);
+    }
+
+    &.swipe-right{
+        width: 1%;
+        border-right: 2px solid var(--ion-color-success);
+    }
+
+    .offer-section{
+        text-align: center;
+        clear: both;
+
+        .offer-left{
+            font-size: 0.8em; 
+            text-transform: none;
+        }
+
+        .offer-amount{
+            font-size: 0.75em; 
+            text-transform: none;
+        }
+
+        .offer-label{
+            font-size: 0.8em; 
+            text-transform: none;
+        }
+
+        &.user{
+            width: 10%;
+        }
+
+        &.content{
+            width: 40%;
+        }
+
+
+    }
+
+    
+}
+
+
+    
+    
+    
+    
+    
+    

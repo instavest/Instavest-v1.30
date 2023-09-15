@@ -1,0 +1,91 @@
+<ion-header class="af-none ">
+    <ion-toolbar class="header-bg">
+        <ion-buttons slot="start">
+            <ion-menu-button color="light"></ion-menu-button>
+        </ion-buttons>
+        <ion-title class="cs-title">About Instavest</ion-title>
+    </ion-toolbar>
+</ion-header>
+    
+<ion-content class="transparent" #content>
+    <swiper-container class="about-slide-content" no-padding pager="true">
+        <swiper-slide>
+            <h3 class="slide-title text-white">What is Instavest?</h3>
+            <div class="infoblock ion-padding text-white">
+                <p>Instavest is market place where you can invest in rare things, like casks of very old whiskey, exclusive property, and Rolex watches.</p>
+            </div>
+
+            <div class="" *ngIf="!noSocial">
+                <ion-button expand="full" shape=""  color="tertiary" (click)="showShareActionsheet()">
+                    <ion-icon color="secondary" name="megaphone" class="mr8 large"></ion-icon>Share Instavest
+                </ion-button>
+            </div>
+
+            <div class="">
+                <ion-button expand="full" shape=""  color="tertiary" (click)="callme('get-info')">
+                    <ion-icon color="secondary" name="chatbubbles" class="mr8 large"></ion-icon>Request Info
+                </ion-button>
+            </div>
+
+            <div class="">
+                <ion-button expand="full" shape=""  color="tertiary" (click)="launchExternalWebsite('visit-Instavest')">
+                    <ion-icon color="secondary" name="chatbubbles" class="mr8 large"></ion-icon>Visit website
+                </ion-button>
+            </div>
+        </swiper-slide>
+        <swiper-slide>
+            <h3 class="slide-title text-white">Rare Opportunities</h3>
+            <div class="infoblock ion-padding text-white">
+                <p>Got something truly unique to sell that has been professionally appraised?</p>
+                <p>If it has good investment value, we'd like to have a look at it!</p>
+            </div>
+            <div class="">
+                <ion-button expand="full" shape="" color="tertiary" (click)="callme('raise-capital')">
+                    <ion-icon  color="secondary" name="thumbs-up" class="mr8 large"></ion-icon>Speak to us
+                </ion-button>
+            </div>
+        </swiper-slide>
+        <swiper-slide>
+            <h3 class="slide-title text-white">Blockchain Tech</h3>
+            <div class="infoblock ion-padding text-white">
+                <p>Instavest is built on Fraxeum technology, a blockchain with a vision to fuel fintech innovation across the globe.
+                </p>
+                <p>The way that people work with money is changing. Join Fraxeum as a partner or investor on the forefront of the global financial system revolution. </p>
+            </div>
+            <div class="">
+                <ion-button expand="full" shape="" color="tertiary" (click)="callme('invest')">
+                    <ion-icon  color="secondary" name="thumbs-up" class="mr8 large"></ion-icon>Get more info
+                </ion-button>
+            </div>
+        </swiper-slide>
+        <swiper-slide>
+            <h3 class="slide-title text-white">Legal</h3>
+            <div class="infoblock ion-padding text-white">
+                <p>
+                    Instavest Venture Capital is not a financial services provider. We do not offer financial advice and we do not provide financial services of any kind. Our market place is purely intended to connect investors with startup businesses. Our revenue is earned
+                    from listing fees, Instavest token fees, and professional services around listings.
+                </p>
+            </div>
+            <div class="">
+                <ion-button expand="full" shape=""  color="tertiary" (click)="launchExternalWebsite('terms-of-use')">
+                    <ion-icon color="secondary" name="reader" class="mr8 large"></ion-icon>Terms of use
+                </ion-button>
+            </div>
+            <div class="">
+                <ion-button expand="full" shape=""  color="tertiary" class="margin-top: 1em;" (click)="launchExternalWebsite('privacy-policy')">
+                    <ion-icon color="secondary" name="eye-off" class="mr8 large"></ion-icon>Privacy policy
+                </ion-button>
+            </div>
+        </swiper-slide>
+    </swiper-container>
+
+    <ion-fab vertical="bottom" horizontal="start" slot="fixed">
+        <ion-fab-button size="small" color="secondary" (click)="router.navigate(['home'])">
+            <ion-icon name="close"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
+
+</ion-content>
+<ion-footer>
+    <p class="small ion-text-center">Version: {{buildVersion}} - {{releaseVersion}}<br/>Fraxeum {{network}}</p>
+</ion-footer>

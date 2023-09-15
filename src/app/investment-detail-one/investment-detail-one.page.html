@@ -1,0 +1,207 @@
+<ion-header class="af-none">
+  <ion-toolbar class="header-bg">
+    <ion-button icon-only slot="start" (click)="navigate('back')">
+      <ion-icon color="light" name="arrow-back"></ion-icon>
+    </ion-button>
+    <ion-title class="cs-title">Rolex Submariner</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="dark">
+
+  <div class="content-framework">
+    <div class="header-box">
+      <img class="header-image" src="assets/img/client-1/header-logo.png">
+
+
+      <swiper-container pager="true" class="no-lines sm-slide">
+        <swiper-slide *ngFor="let slide of slides; let i = index" class="no-lines">
+          <ion-img [src]="slide.poster" (click)="playVideo(''+i)"></ion-img>
+        </swiper-slide>
+      </swiper-container>
+
+      <div *ngIf="progressInt > -1">
+
+        <ion-grid class="ion-no-padding">
+          <ion-row>
+            <ion-col col-4>
+              <div class="infoblock">
+                <p class="stats">
+                  <span class="emphasis xx-large">
+                    {{ (sharePrice ? (sharePrice | currency : 'ZAR': 'R') : "--") }}
+                  </span> <br>
+                  <span class="item-subtitle">
+                    {{ (sharePrice ? "a share" : "") }}
+                  </span>
+                </p>
+              </div>
+            </ion-col>
+            <ion-col col-4>
+              <div class="infoblock">
+                <p class="stats">
+                  <span class="emphasis xx-large">{{ (offerDaysLeft ? offerDaysLeft : "--") }}</span> <br>
+                  <span class="item-subtitle">{{ (offerDaysLeft ? "Days Left" : "") }}</span>
+                </p>
+              </div>
+            </ion-col>
+            <ion-col col-4>
+              <div class="infoblock">
+                <p class="stats">
+                  <span class="emphasis xx-large">{{ ((sharesAvailable ? (sharesAvailable | number: '1.0') : "--")) }}</span> <br>
+                  <span class="item-subtitle">{{ (sharesAvailable ? "left" : "") }}</span>
+                </p>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+          <ion-button expand="full" class="invest-button" (click)="toggleBuyPopupVisibility()"
+            *ngIf="(fiatObjects && fiatObjects.length > 0) && (toFloat(vitals.TokensAvailable) > 0) && (toFloat(vitals.DaysLeft) > 0) && (percentComplete >= 0) && !transactionObj.confirm"
+            color="tertiary">
+            Invest
+          </ion-button>
+
+        <div class="statsblock mt25" *ngIf="daysToGo < 14">
+          <h3 class="content-heading">Raise window</h3>
+          <p>This share offer will close in the next few days!</p>
+          <ion-progress-bar [value]="(100 - daysToGo)" [color]="getStrokeColor()"></ion-progress-bar>
+        </div>
+      </div>
+
+      <div class="statsblock mt25">
+        <h3 class="content-heading">Rolex Submariner</h3>
+        <p>Own a share in a Rolex classic, the Rolex Submariner - the diver's watch.</p>
+        <p>The Rolex Submariner (124060) is a watch model from the Rolex brand and Submariner collection. The average price of a Rolex 124060 as of May 3, 2023 on the private sales market is $12,198, while you can expect to pay $12,943 from a secondary market dealer.</p>
+
+        <swiper-container class="no-lines sm-slide" loop="true" slidesPerView="1">
+          <swiper-slide *ngFor="let item of productImages; let i = index" class="swiper-slide-bg">
+            <ion-card class="ion-no-margin">
+              <ion-card-content>
+                <img [src]="item.src" [alt]="item.name" ionImgViewer />
+                <ion-label class="slide-label">{{item.description}}</ion-label>
+              </ion-card-content>
+            </ion-card>
+          </swiper-slide>
+        </swiper-container>
+      </div>
+
+      <div class="statsblock" *ngIf="progressInt === -1">
+        <p class="soldout Exo2-n">SOLD OUT!</p>
+      </div>
+
+      <div class="statsblock">
+        <h3 class="content-heading">Price performance (USD)</h3>
+        <ion-card>
+          <ion-card-content>
+            <canvas #lineCanvas style="position: relative; height:20vh; width:40vw"></canvas>
+          </ion-card-content>
+        </ion-card>
+      </div>
+
+      <div class="statsblock">
+        <h3 class="content-heading">Key metrics</h3>
+        <p class="small">From WatchCharts.com</p>
+        <ion-grid class="ion-no-padding">
+          <ion-row class="caskData">
+            <ion-col size="4">
+              <p>Demand:</p>
+            </ion-col>
+            <ion-col size="8">
+              <p>2,223 Sales<br/>(last 12 months)</p>
+            </ion-col>
+          </ion-row>
+          <ion-row class="caskData">
+            <ion-col size="4">
+              <p>Market range:</p>
+            </ion-col>
+            <ion-col size="8">
+              <p>$11,446 - $12,830</p>
+            </ion-col>
+          </ion-row>
+          <ion-row class="caskData">
+            <ion-col size="4">
+              <p>Volatility</p>
+            </ion-col>
+            <ion-col size="8">
+              <p>5.7%</p>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+
+      <div class="statsblock mt25">
+        <h3 class="content-heading">WatchCharts.com Notes</h3>
+        <p>Overall, this watch has performed better than 67% of qualifying* watches on the secondary market in the past year. The overall rating is determined using a combination of the Growth, Liquidity, and Predictability ratings.</p>
+        <p>The Rolex Submariner (124060) is a watch model from the Rolex brand and Submariner collection. The average price of a Rolex 124060 as of May 3, 2023 on the private sales market is $12,198, while you can expect to pay $12,943 from a secondary market dealer.</p>
+
+        <swiper-container class="no-lines sm-slide" loop="true" slidesPerView="1">
+          <swiper-slide *ngFor="let item of productImages; let i = index" class="swiper-slide-bg">
+            <ion-card class="ion-no-margin">
+              <ion-card-content>
+                <img [src]="item.src" [alt]="item.name" ionImgViewer />
+                <ion-label class="slide-label">{{item.description}}</ion-label>
+              </ion-card-content>
+            </ion-card>
+          </swiper-slide>
+        </swiper-container>
+      </div>
+
+      <div class="statsblock red">
+        <h3 class="content-heading">Disclaimer: No investment advice</h3>
+        <p>Instavest is not an authorised financial services provider and is not authorised to offer investment advice. You should do your own investment research before making an investment decision.</p>
+      </div>
+
+      <div class="statsblock">
+        <h3 class="content-heading">Investment notes</h3>
+        <p>The Rolex Submariner is a men's Rolex watch in the classic, durable Rolex design. People invest in this asset to take part in the global success of the Rolex brand and to share in the growth potential of classic and rare timepieces.</p>
+        <p>This particular unit was purchased in Pretoria South Africa and is kept, in prestine, unused condition in the
+          Instavest vault where it is maintained by our expert watch collector.</p>
+        <h3 class="content-heading">Investment period</h3>
+        <p>The investment committee intends to keep and monitor this investment for up to five years or until the initial
+          capital value has doubled whichever happens first.</p>
+      </div>
+
+      <ion-button expand="full" class="invest-button" (click)="toggleBuyPopupVisibility()"
+        *ngIf="(fiatObjects && fiatObjects.length > 0) && (toFloat(vitals.TokensAvailable) > 0) && (toFloat(vitals.DaysLeft) > 0) && (percentComplete >= 0) && !transactionObj.confirm"
+        color="tertiary">Invest</ion-button>
+
+      <div class="slides-heading">
+        <h3>Supporting docs</h3>
+      </div>
+      <div class="docs-section">
+        <button shape="" class="ion-activatable docs-btn" (click)="launchDocs(0)">
+          Authenticity Certificate
+        </button>
+        <button shape="" class="ion-activatable docs-btn" (click)="launchDocs(1)">
+          Official Website
+        </button>
+        <button shape="" class="ion-activatable docs-btn" (click)="launchDocs(2)">
+          Watch Charts
+        </button>
+      </div>
+
+      <div class="slides-heading">
+        <h3>Frequest questions</h3>
+      </div>
+
+      <div class="cs-accordion mb70">
+        <ng-container *ngFor="let data of accordionData; let i = index">
+          <div class="accordion" [ngClass]="data.active ? 'active' : ''">
+            <ion-card-header (click)="data.active = !data.active"> {{ !data.title ? '' : data.title}}
+              <ion-icon *ngIf="data.active" slot="end" name="chevron-down-sharp"></ion-icon>
+              <ion-icon *ngIf="!data.active" slot="end" name="chevron-forward-sharp"></ion-icon>
+            </ion-card-header>
+            <ion-card-content [innerHtml]="data.description">
+            </ion-card-content>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+
+</ion-content>
+
+<!-- buy button -->
+<app-shared-buy-wizard *ngIf="showBuyPopup" [fiatdata]='fiatObjects[0]' [sharePrice]="sharePrice" [step]="showPart"
+  [vitals]="vitals" [fees]="fees" (sendTransction)="evtSendTransaction($event)" (checkoutMsg)="updateTransactionObj($event)">
+</app-shared-buy-wizard>

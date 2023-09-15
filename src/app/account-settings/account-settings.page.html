@@ -1,0 +1,179 @@
+<ion-header class="af-none">
+  <ion-toolbar class="header-bg">
+      <ion-button icon-only slot="start" [routerLink]="['/home']">
+          <ion-icon color="seconary" name="arrow-back"></ion-icon>
+      </ion-button>
+      <ion-title class="cs-title">Preferences</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="page-content" (pan)="handleSwipe($event)">
+
+  <ng-container *ngIf="!userdata">
+    <div style="width: 100%; margin: 1em 0; text-align: center;">
+      <ion-spinner color="seconary" name="dots"></ion-spinner>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="userdata" class="outerlayer-div">
+    <ion-grid padding style="margin-bottom: 5px;">
+      <ion-row>
+        <ion-col (click)="showPage(0)" class="centered">
+          <ion-label [ngClass]="cPage === 0 ? 'selected' : 'not-selected'">Personal</ion-label>
+        </ion-col>
+        <ion-col (click)="showPage(2)" class="centered">
+          <ion-label [ngClass]="cPage === 2 ? 'selected' : 'not-selected'">Banking</ion-label>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <!-- Personal tab data -->
+    <ng-container *ngIf="currentPage==='personal'" class="form-content">
+      <div class="infoblock mt5 mb0">
+        <p class="text-white"> Your personal information is stored encrypted and never shared with third parties, unless
+          you specifically agreed to it.</p>
+      </div>
+
+      <div class="slides-heading">
+        <h3>Personal information</h3>
+      </div>
+
+      <ion-item-group class="input-block">
+        <ion-item lines="full">
+          <ion-input color="light" aria-label="Email address" placeholder="Email address" labelPlacement="start"  inputmode="email" type="email" value="{{user.Email}}" clearOnEdit="false"
+            [(ngModel)]="user.Email" [disabled]="true"></ion-input>
+          <ion-icon color="seconary" name="lock-closed" slot="end" size="small"></ion-icon>
+          <!-- Email address not editable -->
+        </ion-item>
+        <ion-item lines="full">
+          <ion-input id="app-form" aria-label="Login username" placeholder="Login username" labelPlacement="start" color="light" inputmode="text" class="input-item" type="email" autocomplete="nickname"
+            value="{{ user.UserName != '' ? user.UserName : user.Email }}" clearOnEdit="false"
+            [(ngModel)]="user.UserName" (click)="editMode(1, 'E')" (keyup.enter)="saveChanges('general', 'Username', 1)">
+          </ion-input>
+          <ion-icon *ngIf="fieldState[1].state === 'E'" size="small" color="light" name="save" slot="end"
+            (click)="saveChanges('general', 'Username', 1)"></ion-icon>
+          <ion-icon *ngIf="fieldState[1].state === 'S'" size="small" color="light" name="checkmark-circle-outline"
+            slot="end"></ion-icon>
+          <ion-icon *ngIf="fieldState[1].state === 'F'" size="small" color="light" name="close-circle-outline"
+            slot="end">
+          </ion-icon>
+          <ion-spinner *ngIf="fieldState[1].state === 'I'" color="light" name="dots" slot="end"></ion-spinner>
+        </ion-item>
+
+        <ion-item  lines="full">
+          <ion-input id="app-form"  aria-label="Firstname" placeholder="Name" labelPlacement="start" color="light" inputmode="text" autocomplete="given-name" class="input-item" type="text"
+            value="{{user.FirstName}}" clearOnEdit="false" [(ngModel)]="user.FirstName" (click)="editMode(2, 'E')" (keyup.enter)="saveChanges('general', 'First name', 2)">
+          </ion-input>
+          <ion-icon *ngIf="fieldState[2].state === 'E'" size="small" color="light" name="save" slot="end"
+            (click)="saveChanges('general', 'First name', 2)"></ion-icon>
+          <ion-icon *ngIf="fieldState[2].state === 'S'" size="small" color="light" name="checkmark-circle-outline"
+            slot="end"></ion-icon>
+          <ion-icon *ngIf="fieldState[2].state === 'F'" size="small" color="light" name="close-circle-outline"
+            slot="end">
+          </ion-icon>
+          <ion-spinner *ngIf="fieldState[2].state === 'I'" color="light" name="dots" slot="end"></ion-spinner>
+        </ion-item>
+
+        <ion-item  lines="full">
+          <ion-input id="app-form" aria-label="Surname" placeholder="Surname" labelPlacement="start" color="light" inputmode="text" class="input-item" autocomplete="family-name" type="text"
+            value="{{user.LastName}}" clearOnEdit="false" [(ngModel)]="user.LastName" (click)="editMode(3, 'E')" (keyup.enter)="saveChanges('general', 'Last name', 3)">
+          </ion-input>
+          <ion-icon *ngIf="fieldState[3].state === 'E'" size="small" color="light" name="save" slot="end"
+            (click)="saveChanges('general', 'Last name', 3)"></ion-icon>
+          <ion-icon *ngIf="fieldState[3].state === 'S'" size="small" color="light" name="checkmark-circle-outline"
+            slot="end"></ion-icon>
+          <ion-icon *ngIf="fieldState[3].state === 'F'" size="small" color="light" name="close-circle-outline"
+            slot="end">
+          </ion-icon>
+          <ion-spinner *ngIf="fieldState[3].state === 'I'" color="light" name="dots" slot="end"></ion-spinner>
+        </ion-item>
+
+        <ion-item lines="full" *ngIf="showNotificationToggle" color="primary">
+          <ion-toggle aria-label="Notifications" labelPlacement="start" justify="space-between" name="pushToggle" color="light"
+            (ionChange)="toggleNotificationPermission()" [checked]="notificationSetting" [enableOnOffLabels]="true">Notifications</ion-toggle>
+        </ion-item>
+
+        <ion-item lines="full" color="primary">
+          <ion-toggle aria-label="Biometric log in" labelPlacement="start" justify="space-between" name="biometricToggle" color="light"
+            (ionChange)="toggleBiometricState()" [checked]="biometricState" [enableOnOffLabels]="true">Biometric log in</ion-toggle>
+        </ion-item>
+      </ion-item-group>
+    </ng-container>
+    
+    <!-- Bank tab data -->
+    <ng-container *ngIf="currentPage==='banking'">
+      <div class="infoblock mt5 mb0">
+        <p class="text-white"> You bank account information is required to process cash withdrawals. For account
+          security,
+          an authorised Azuza Team member verifies and loads banking details.
+          <span *ngIf="!bankingLoaded">Get started by uploading proof of your bank account generated by your bank. You
+            can
+            either
+            upload a photo here, or email it (finance@instavestcapital.com).
+          </span>
+          <span *ngIf="bankingLoaded">
+            To make changes to your banking details, send us proof of your new banking details by uploading a photo, or
+            email it or email it (finance@instavestcapital.com).
+          </span>
+          This is currently a manual process, please
+          allow up to three business days to process.
+      </div>
+
+      <div *ngIf="bankingLoaded">
+        <div class="slides-heading">
+          <h3>Current banking details</h3>
+        </div>
+        <ion-list>
+          <ion-item  lines="full">
+            <ion-input aria-label="Bank name" labelPlacement="start" color="light" class="input-item" type="text" value="{{userdata.bank.BankName}}" disabled>
+            </ion-input>
+          </ion-item>
+          <ion-item *ngIf="userdata.bank.BankAccountType"  lines="full">
+            <ion-input  aria-label="Account type" labelPlacement="start" color="light" class="input-item" type="text" value="{{userdata.bank.BankAccountType}}" disabled>
+            </ion-input>
+          </ion-item>
+          <ion-item  lines="full">
+            <ion-input  aria-label="Account number" labelPlacement="start" color="light" class="input-item" type="text" value="{{userdata.bank.AccountNumber}}" disabled>
+            </ion-input>
+          </ion-item>
+          <ion-item  lines="full">
+            <ion-input  aria-label="Branch code" labelPlacement="start" color="light" class="input-item" type="text" value="{{userdata.bank.BranchCode}}" disabled>
+            </ion-input>
+          </ion-item>
+        </ion-list>
+      </div>
+
+      <ion-grid *ngIf="bankingLoaded" class="mt20">
+        <ion-row class="ion-no-padding">
+          <ion-col size="12" class="ion-no-padding">
+            <div class="doc-btn">
+              <ion-button expand="full" color="secondary" (click)="selectImage('PoB', 3)" class="doc-btn">
+                Proof of bank account
+                <ion-icon *ngIf="KycDocItems[3].b64img === 'U'" slot="end" style="color: white"
+                  name="checkmark-circle-outline"></ion-icon>
+                <ion-spinner *ngIf="KycDocItems[3].b64img === 'I'" color="light" name="dots" slot="end"></ion-spinner>
+              </ion-button>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+      <ion-grid *ngIf="!bankingLoaded" class="mt20">
+        <ion-row class="ion-no-padding">
+          <ion-col size="12" class="ion-no-padding">
+            <div class="doc-btn">
+              <ion-button expand="full" color="secondary" (click)="selectImage('PoB', 3)">Upload bank
+                letter
+                <ion-icon *ngIf="KycDocItems[3].b64img === 'U'" slot="end" style="color: white"
+                  name="checkmark-circle-outline"></ion-icon>
+                <ion-spinner *ngIf="KycDocItems[3].b64img === 'I'" color="light" name="dots" slot="end"></ion-spinner>
+              </ion-button>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+    </ng-container>
+
+  </ng-container>
+</ion-content>

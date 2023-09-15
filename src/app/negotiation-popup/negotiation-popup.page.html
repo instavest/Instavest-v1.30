@@ -1,0 +1,168 @@
+<ion-header class="af-none ">
+  <ion-toolbar class="header-bg">
+    <button class="back-button" ion-button icon-only slot="start" (click)="dismissModal()">
+      <ion-icon name="arrow-back-sharp" size="small"></ion-icon>
+    </button>
+    <ion-title class="cs-title">Private trade room</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content class="header-bg" color="bg-none">
+
+  <div class="infoblock mb5">
+    <p>
+      Your share sales negotiation with the {{ data.whoami === 'S' ? "buyer" : "seller" }} is private and
+      direct. You are free to accept or reject
+      an offer or create a counter offer. This transaction is closed once an offer has been accepted or rejected.
+    </p>
+  </div>
+  <div class="slides-heading">
+    <h3 *ngIf="data.whoami === 'S' "> Latest offer on the table</h3>
+    <h3 *ngIf="data.whoami === 'B' ">Latest offer on the table</h3>
+  </div>
+
+
+  <ion-list lines="none" class="swipecard  swipecard-flat  ion-no-padding cs-transparent-list">
+    <ion-item color="bg-none" class="share-list-item">
+      <ion-grid class="ion-padding-vertical">
+        <ion-row nowrap class="ion-no-padding">
+          <ion-col size="11" class="ion-no-padding">
+            <div class="offer wp100">
+              <p class="wp100 ion-no-margin ion-text-center small" *ngIf="data.whoami === 'S' ">
+                {{ data.lastbidder === "B" ? "Buyer's current offer" : "You suggested"}}</p>
+              <p class="wp100 ion-no-margin ion-text-center small" *ngIf="data.whoami === 'B' ">
+                {{ data.lastbidder === "B" ? "You suggested" : "Seller's current offer"}}</p>
+              <span class="large"> {{ data.price | currency : 'ZAR': 'R' }}</span>
+              <p class="wp100 ion-no-margin ion-text-center small">per share for {{ data.amount | number: '0.0' }}
+                shares.</p>
+            </div>
+          </ion-col>
+
+          <ion-col size="1" class=" ion-no-padding df ac jc pb10">
+            <div class="shares-user-info-item text-center ">
+              <ion-icon name="ellipsis-vertical" (click)="showActionSheet()" color="light">
+              </ion-icon>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+
+  </ion-list>
+
+
+
+  <div class="slides-heading">
+    <h3>Key numbers</h3>
+  </div>
+
+
+  <ion-list lines="none" class="swipecard  swipecard-flat  ion-no-padding cs-transparent-list">
+    <ion-item color="bg-none" class="share-list-item">
+      <ion-grid class="ion-padding-vertical">
+        <ion-row nowrap class="ion-no-padding">
+          <ion-col size="6" class="ion-no-padding border-right pb10">
+            <ion-row nowrap class="ion-no-padding offer-row row" style="border-bottom: 1px solid #fff;">
+              <ion-col size="12" class="ion-no-padding share-content ">
+                <div class="offer wp100">
+                  <p class="wp100 ion-text-center">Original price</p>
+                  <span>{{ data.originalprice | currency : 'ZAR': 'R' }}</span>
+                </div>
+              </ion-col>
+            </ion-row>
+            <ion-row nowrap class="ion-no-padding offer-row row ">
+              <ion-col size="12" class="ion-no-padding share-content ">
+                <div class="offer wp100">
+                  <p class="wp100 ion-text-center">Total on sale</p>
+                  <span>{{ data.totalforsale | number : '1.0-0' }}</span>
+                </div>
+              </ion-col>
+            </ion-row>
+          </ion-col>
+
+
+          <ion-col size="6" class="ion-no-padding pb10">
+            <ion-row nowrap class="ion-no-padding offer-row row " style="border-bottom: 1px solid #fff;">
+              <ion-col size="12" class="ion-no-padding share-content ">
+                <div class="offer wp100">
+                  <p class="wp100 ion-text-center">Last close price</p>
+                  <span> {{ data.lastprice | currency : 'ZAR': 'R' }} </span>
+                </div>
+              </ion-col>
+            </ion-row>
+            <ion-row nowrap class="ion-no-padding offer-row row">
+              <ion-col size="12" class="ion-no-padding share-content ">
+                <div class="offer wp100">
+                  <p class="wp100 ion-text-center">Total shares left</p>
+                  <span>{{ data.left | number : '1.0-0' }}</span>
+                </div>
+              </ion-col>
+            </ion-row>
+          </ion-col>
+
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+
+  </ion-list>
+
+  <div class="slides-heading">
+    <h3>Offer history</h3>
+  </div>
+
+  <div class="message-wrap mb80">
+    <div *ngFor="let counter of data.history[0].Counter">
+
+      <div [ngClass]="counter.BS === data.whoami ? 'message right' : 'message left' ">
+        <div class="msg-detail">
+
+          <div class="msg-content">
+            <span class="triangle"></span>
+            <p *ngIf="data.whoami === 'S' ">
+              <span class="fw500 small black-text"> {{ counter.BS === "S" ? "You counter offered" : "Buyer offered"  }}
+                {{ counter.Price | currency : 'ZAR': 'R' }} for {{ data.amount | number : '1.0' }} shares.<br />Current
+                deal value:
+                {{ (counter.Price * data.amount) | currency : 'ZAR': 'R' }}</span>
+            </p>
+            <p *ngIf="data.whoami === 'B' ">
+              <span class="fw500 small black-text"> {{ counter.BS === "S" ? "Seller counter offered" : "You offered"  }}
+                {{ counter.Price | currency : 'ZAR': 'R' }} for {{ data.amount | number : '1.0' }} shares.<br />Current
+                deal value:
+                {{ (counter.Price * data.amount) | currency : 'ZAR': 'R' }}</span>
+            </p>
+          </div>
+        </div>
+        <div class="msg-info">
+          <p *ngIf="data.whoami === 'S' " class="note text-white" style="margin-top: 0px;">
+            {{ counter.BS === 'B' ? 'Buyer' : 'You' }} on {{ convertDate(counter.TimeStamp) | date:'short'}}
+          </p>
+          <p *ngIf="data.whoami === 'B' " class="note text-white" style="margin-top: 0px;">
+            {{ counter.BS === 'B' ? 'You' : 'Seller' }} on {{ convertDate(counter.TimeStamp) | date:'short'}}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <ion-fab horizontal="start" vertical="bottom" slot="fixed" #fab>
+    <ion-fab-button  class="ionFabMenuButton" size="small">
+      <ion-icon md="menu" ios="menu"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-list side="top">
+
+      <ion-fab-button color="secondary" class="right" title="Help">
+        <ion-icon name="help"></ion-icon>
+        <!-- <label class="popup-label"><span>Undo</span></label> -->
+      </ion-fab-button>
+
+      <ion-fab-button class="right" title="Back" color="secondary" (click)="dismissModal()">
+        <ion-icon name="arrow-undo"></ion-icon>
+        <!-- <label class="popup-label"><span>Back</span></label> -->
+      </ion-fab-button>
+
+    </ion-fab-list>
+  </ion-fab>
+
+</ion-content>

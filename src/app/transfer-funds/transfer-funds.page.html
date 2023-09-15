@@ -1,0 +1,237 @@
+<ion-header class="af-none" *ngIf="!showConfirm">
+    <ion-toolbar class="header-bg">
+        <ion-button icon-only slot="start" [routerLink]="['/home']">
+            <ion-icon color="light" name="arrow-back"></ion-icon>
+        </ion-button>
+        <ion-title class="cs-title">Transfer Shares</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ng-container *ngIf="showImpossibleMsg == null">
+        <div style="width: 100%; margin: 1em 0; text-align: center;">
+            <ion-spinner color="light" name="dots"></ion-spinner>
+        </div>
+    </ng-container>
+
+    <ng-container *ngIf="showImpossibleMsg != null">
+
+        <div *ngIf="showImpossibleMsg">
+            <div class="infoblock mt20 mb0">
+                <p class="text-white">
+                    Shares can only be transferred between your own accounts. Currently you only have one account, which
+                    is your Main account. Click the
+                    <ion-icon name="add-circle"></ion-icon> below to create more accounts.
+                </p>
+            </div>
+
+
+        </div>
+
+        <div *ngIf="!showImpossibleMsg">
+
+            <div class="infoblock mt20 mb0" *ngIf="!showConfirm">
+                <p class="text-white">
+                    Shares in your 'Available' wallet can be transferred to any other wallet that you own free of
+                    charge. Share exchange between people is possible using the Instavest share trading platform.
+                </p>
+            </div>
+
+            <div class="page-content">
+                <div class="outerlayer-div">
+                    <div class="form-content" style="text-align: center; margin-top: 15px !important;">
+                        <div *ngIf="!showConfirm">
+                            <p class="text-white ion-text-left" style="margin-bottom: unset">From account:</p>
+                            <div class="input-block">
+                                <ion-grid class="ion-no-padding">
+                                    <ion-row class="ion-no-padding" (click)="toggleSwitchAccount('from')">
+                                        <ion-col size="10" class="ion-no-padding">
+                                            <ion-input type="text" class="ion-text-center " readonly="true"
+                                                value="{{ selectedIndexFrom.Name }}"></ion-input>
+                                        </ion-col>
+                                        <ion-col size="2" class="ion-no-padding">
+                                            <div class="switch-button text-center flex-center">
+                                                <ion-icon name="chevron-down-outline"></ion-icon>
+                                            </div>
+                                        </ion-col>
+                                    </ion-row>
+                                </ion-grid>
+                            </div>
+
+                            <p *ngIf="selectedIndexFrom.Balance.Asset && selectedIndexFrom.Balance.Asset.length === 1"
+                                class="text-white ion-text-left" style="margin-bottom: unset">Shares to transfer:</p>
+                            <!-- only one asset in a wallet -->
+                            <div class="input-block"
+                                *ngIf="selectedIndexFrom.Balance.Asset && selectedIndexFrom.Balance.Asset.length === 1">
+                                <ion-grid class="ion-no-padding">
+                                    <ion-row class="ion-no-padding">
+                                        <ion-col size="12" class="ion-no-padding">
+                                            <ion-input type="text" class="ion-text-center " readonly="true"
+                                                value="{{ selectedAsset.CurrencyName }}">
+                                            </ion-input>
+                                        </ion-col>
+                                    </ion-row>
+                                </ion-grid>
+                            </div>
+
+                            <!-- more than one asset in a wallet -->
+                            <p *ngIf="selectedIndexFrom.Balance.Asset && selectedIndexFrom.Balance.Asset.length > 1"
+                                class="text-white ion-text-left" style="margin-bottom: unset">Shares to transfer:</p>
+                            <div class="input-block"
+                                *ngIf="selectedIndexFrom.Balance.Asset && selectedIndexFrom.Balance.Asset.length > 1">
+                                <ion-grid class="ion-no-padding">
+                                    <ion-row class="ion-no-padding" (click)="toggleSwitchCurrency()">
+                                        <ion-col size="10" class="ion-no-padding">
+                                            <ion-input type="text" class="ion-text-center " readonly="true"
+                                                value="{{ selectedAsset.CurrencyName }}"></ion-input>
+                                        </ion-col>
+                                        <ion-col size="2" class="ion-no-padding">
+                                            <div class="switch-button text-center flex-center">
+                                                <ion-icon name="chevron-down-outline"></ion-icon>
+                                            </div>
+                                        </ion-col>
+                                    </ion-row>
+                                </ion-grid>
+                            </div>
+
+                            <p class="text-white ion-text-left" style="margin-bottom: unset">Amount to transfer:</p>
+                            <div class="input-block">
+                                <ion-grid class="ion-no-padding">
+                                    <ion-row class="ion-no-padding">
+                                        <ion-col size="12" class="ion-no-padding">
+                                            <ion-input [(ngModel)]="transferObject.amount" type="amount"
+                                                class="ion-text-right ion-padding-end" autocomplete="off"
+                                                (keyup)="doCheckReady()"
+                                                placeholder="Available: {{ ( getSelectedAssetBalance() | number: '1.0' )  }}">
+                                            </ion-input>
+                                        </ion-col>
+                                    </ion-row>
+                                </ion-grid>
+                            </div>
+
+                            <p class="text-white ion-text-left" style="margin-bottom: unset">Receiving account:</p>
+                            <div class="input-block">
+                                <ion-grid class="ion-no-padding">
+                                    <ion-row class="ion-no-padding" (click)="toggleSwitchAccount('to')">
+                                        <ion-col size="10" class="ion-no-padding">
+                                            <ion-input type="text" class="ion-text-center " readonly="true"
+                                                value="{{ selectedIndexTo.Name }}">
+                                            </ion-input>
+                                        </ion-col>
+                                        <ion-col size="2" class="ion-no-padding">
+                                            <div class="switch-button text-center flex-center">
+                                                <ion-icon name="chevron-down-outline"></ion-icon>
+                                            </div>
+                                        </ion-col>
+                                    </ion-row>
+                                </ion-grid>
+                            </div>
+                        </div>
+
+                        <!-- FROM ACCOUNT LIST -->
+                        <div *ngIf="showAccountList && this.selectedIndexFrom.show" class="buyblock" style="top: 20%;">
+                            <div scrolly="true" class="scrollable-content">
+                                <div class="content">
+
+                                    <h4 class="text-white buy-heading">From account:</h4>
+                                    <ion-list lines="none" class="ion-no-padding cs-transparent-list">
+                                        <div *ngFor="let item of cleanAccList; let i = index">
+                                            <ion-item class="share-list-item" (click)="setValue(i)">
+                                                <ion-label style="color: white !important;">
+                                                    {{ item.Name }}
+                                                </ion-label>
+                                                <ion-icon slot="end" *ngIf="item.selected && item.role === 'from' "
+                                                    name="arrow-forward-circle-outline"
+                                                    style="font-size: 24px; color: white;">
+                                                </ion-icon>
+                                            </ion-item>
+                                        </div>
+                                    </ion-list>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- TO ACCOUNT LIST -->
+                        <div *ngIf="showAccountList && !this.selectedIndexFrom.show" class="buyblock" style="top: 20%;">
+                            <div scrolly="true" class="scrollable-content">
+                                <div class="content">
+
+                                    <h4 class="text-white buy-heading">Receiving account:</h4>
+                                    <ion-list lines="none" class="ion-no-padding cs-transparent-list">
+                                        <div *ngFor="let item of accountList; let i = index">
+                                            <ion-item *ngIf="item.role !== 'from'" class="share-list-item"
+                                                (click)="setValue(i)">
+                                                <ion-label style="color: white !important;">
+                                                    {{ item.Name }}
+                                                </ion-label>
+                                                <ion-icon slot="end" *ngIf="item.selected && item.role === 'from'"
+                                                    name="arrow-forward-circle-outline"
+                                                    style="font-size: 24px; color: white;">
+                                                </ion-icon>
+                                                <ion-icon slot="end" *ngIf="item.selected && item.role === 'to'"
+                                                    name="arrow-back-circle-outline"
+                                                    style="font-size: 24px; color: white;">
+                                                </ion-icon>
+                                            </ion-item>
+                                        </div>
+                                    </ion-list>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div *ngIf="showCurrencyList" class="buyblock" style="top: 20%;">
+                            <div scrolly="true" class="scrollable-content">
+                                <div class="content">
+
+                                    <h4 class="text-white buy-heading">Select share:</h4>
+                                    <ion-list lines="none" class="ion-no-padding cs-transparent-list">
+                                        <div *ngFor="let item of selectedIndexFrom.Balance.Asset; let i = index">
+                                            <ion-item *ngIf="item.Available > 0" class="share-list-item"
+                                                (click)="setCurrency(i)">
+                                                <ion-label style="color: white !important;">
+                                                    {{ item.SPVNAME }}
+                                                </ion-label>
+                                                <ion-icon slot="end" *ngIf="item.selected"
+                                                    name="checkmark-circle-outline"
+                                                    style="font-size: 24px; color: white;">
+                                                </ion-icon>
+                                            </ion-item>
+
+                                        </div>
+                                    </ion-list>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <ng-container *ngIf="showTransferActivity">
+                        <div style="width: 100%; margin: 1em 0; text-align: center;">
+                            <ion-spinner color="secondary" name="dots"></ion-spinner>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+
+            <ion-fab *ngIf="showAccountList" vertical="bottom" horizontal="start" slot="fixed">
+                <ion-fab-button color="secondary" size="small" (click)="toggleSwitchAccount('close')">
+                    <ion-icon name="close-outline"></ion-icon>
+                </ion-fab-button>
+            </ion-fab>
+
+            <ion-fab *ngIf="showCurrencyList" vertical="bottom" horizontal="start" slot="fixed">
+                <ion-fab-button color="secondary" size="small" (click)="toggleSwitchCurrency()">
+                    <ion-icon name="close-outline"></ion-icon>
+                </ion-fab-button>
+            </ion-fab>
+
+            <ion-fab vertical="bottom" horizontal="end" slot="fixed" *ngIf="!showConfirm">
+                <ion-fab-button color="secondary" [disabled]="!readyToSubmit" (click)="nextStep()" size="small">
+                    <ion-icon name="arrow-forward-outline"></ion-icon>
+                </ion-fab-button>
+            </ion-fab>
+
+        </div>
+    </ng-container>
+
+    <div class="h80">&nbsp;</div>
+
+</ion-content>

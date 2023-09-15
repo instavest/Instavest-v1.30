@@ -1,0 +1,71 @@
+<ion-content class="no-padding">
+    <div class="logo-block">
+        <div class="small-logo" style="margin: unset;">
+            <img src="assets/img/instavest_logo_w_250x47.png" class="slide-image-go" style="margin-top:20px; margin-left: auto; margin-right:auto; max-height: 40px;">
+        </div>
+    </div>
+    <ng-container *ngIf="!referralCode">
+        <div style="width: 100%; margin: 1em 0; text-align: center;">
+            <ion-spinner color="secondary" name="dots"></ion-spinner>
+        </div>
+    </ng-container>
+    <ng-container *ngIf="referralCode">
+
+        <div class="referral-heading">
+            <span style="font-size: x-large; margin-top: 1em">FREE AZUZA SHARES!</span>
+        </div>
+        <div class="terms-text referral-code-word">Referral code:</div>
+
+        <div class="referral-heading">
+            <span class="referralCode">{{ referralCode }}</span>
+        </div>
+
+
+        <div class="infoblock mt25">
+            <p>Invite friends to join Instavest and get rewarded with Instavest shares!<br /><br />
+                <span class="small">
+          Each Instavest share represents real shares in the Instavest SPV company. You keep your Instavest shares in
+          your Instavest Wallet and wait for them to start earning dividends. Later on you can sell them on our OTC
+          market for cash!
+        </span>
+            </p>
+        </div>
+
+        <div style="margin-top: 2em; padding: 1em 2em; border-top: 1px solid rgba(255,255,255,0.075)">
+            <h3>Rules:</h3>
+
+            <ion-list lines="none" class="ion-no-padding cs-transparent-list">
+                <ion-item>
+                    <ion-label class="terms-text ion-text-wrap">1. One million shares have been issued in Instavest VC SPV (Pty) Ltd, a debt remote, ring-fenced, special purpose vehicle that owns 5% shares in Instavest Wealth (Pty) Ltd.
+                    </ion-label>
+                </ion-item>
+                <ion-item>
+                    <ion-label class="terms-text ion-text-wrap">2. One Instavest share represents one class B share in Instavest VC SPV (Pty) Ltd.
+                    </ion-label>
+                </ion-item>
+                <ion-item>
+                    <ion-label class="terms-text ion-text-wrap">3. Class B shares have no voting rights, but own 100% of the economic benefit of the company.</ion-label>
+                </ion-item>
+                <ion-item>
+                    <ion-label class="terms-text ion-text-wrap">4. Class B share owners are held harmless against any potential debt and normal shareholder responsibilities.</ion-label>
+                </ion-item>
+                <ion-item>
+                    <ion-label class="terms-text ion-text-wrap">5. A referrer earns Instavest shares equal to 5% of the referred investor's successfully invested ZAR-amount, example: You refer person B. Person B invests R1 000 with any startup on our platform, you get 50 Instavest shares.</ion-label>
+                </ion-item>
+                <ion-item>
+                    <ion-label class="terms-text ion-text-wrap">6. Offer valid while Instavest shares supply lasts.</ion-label>
+                </ion-item>
+                <ion-item>
+                    <ion-label class="terms-text ion-text-wrap">7. For you to receive Instavest shares your referred users must use your referral code ({{ referralCode }}) when they register. Errors or omissions cannot be rectified after registration.</ion-label>
+                </ion-item>
+            </ion-list>
+        </div>
+    </ng-container>
+
+    <ion-fab vertical="bottom" horizontal="start" slot="fixed">
+        <ion-fab-button size="small" color="secondary" (click)="router.navigate(['home'])">
+            <ion-icon name="close"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
+
+</ion-content>

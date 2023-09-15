@@ -1,0 +1,91 @@
+<ion-header class="af-none ">
+    <ion-toolbar class="header-bg">
+        <ion-buttons slot="start" color="light" (click)="close()" style="padding-left: 5px;">
+            <ion-icon color="light" name="arrow-back-sharp" size="small"></ion-icon>
+        </ion-buttons>
+        <ion-title class="cs-title">{{ topic.heading }}</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="transparent" #content>
+
+    <ng-container *ngIf="topic.text.length > 0">
+        <div class="infoblock ion-padding text-white">
+            <p>{{ topic.text }}</p>
+        </div>
+    </ng-container>
+
+    <ng-container *ngIf="showTopics && topics != null">
+        <div class="message-wrap">
+            <ion-list lines="none" class="ion-no-padding cs-transparent-list">
+                <ion-item color="bg-none" class="share-list-item" *ngFor="let item of topics, let idx = index" (click)="setTopic(idx, item.Name, item.value)">
+                    <ion-grid class="ion-no-padding">
+                        <ion-row>
+                            <ion-col size="11" class="list-item-share-action-btn ">
+                                {{item.Name}}
+                            </ion-col>
+                            <ion-col size="1" class="text-center df ac jc">
+                                <ion-icon name="checkmark-circle" color="light" style="font-size: 26px;" *ngIf="item.selected">
+                                </ion-icon>
+                            </ion-col>
+                        </ion-row>
+                    </ion-grid>
+                </ion-item>
+            </ion-list>
+        </div>
+    </ng-container>
+
+    <!--
+      <div *ngIf="showTopics && supportItem.msg && supportItem.msg.length > 1">
+        <div *ngFor="let item of supportItem.msg | slice:1">
+          <div class="message left" style="margin-top: 10px">
+            <div class="msg-detail">
+              <div class="msg-content">
+                  <span class="triangle"></span>
+                <p class="text-black line-breaker ">{{ item.msg }}</p>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+  -->
+
+    <div *ngIf="supportItem.msg && supportItem.msg.length > 0">
+        <div class="message-wrap ion-padding">
+            <div *ngFor="let item of supportItem.msg">
+                <div class="mb10" [ngClass]="memberId === item.SenderId  ? 'message right' : 'message left' ">
+                    <div class="msg-detail">
+                        <div class="msg-content">
+                            <span class="triangle"></span>
+                            <p class="text-black line-breaker">{{item.msg}}</p>
+                        </div>
+                    </div>
+                    <div class="msg-info">
+                        <p class="text-white smallest" style="font-size: 0.75em;">
+                            {{ memberId == item.SenderId ? 'You' : 'Instavest Support' }} {{ item.datetime == "now" ? "now" : " on "+( convertDate(item.datetime) | date:'d/M/yy HH:mm': 'GMT+2': 'en-GB' ) }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ion-content>
+
+
+<ion-footer>
+    <ion-toolbar color="primary-shade">
+        <ion-grid class="ion-no-margin" *ngIf="canReply">
+            <ion-row class="ion-no-margin">
+                <ion-col size="10" class="ion-no-margin ion-no-padding">
+                    <ion-textarea placeholder="Type a message..." [(ngModel)]="message" name="message" rows="2" class="text-white" [disabled]="!canSend"></ion-textarea>
+                </ion-col>
+                <ion-col size="2" class="ion-no-margin ion-no-padding df ac jc">
+                    <ion-button color="transparent" class="sendbox" [disabled]="!canSend" (click)="send()">
+                        <ion-icon *ngIf="!sending" name="send"></ion-icon>
+                        <ion-spinner *ngIf="sending" color="light" name="dots"></ion-spinner>
+                    </ion-button>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </ion-toolbar>
+</ion-footer>

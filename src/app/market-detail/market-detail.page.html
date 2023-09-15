@@ -1,0 +1,398 @@
+<ion-header class="af-none ">
+  <ion-toolbar class="header-bg">
+    <ion-buttons slot="start">
+      <ion-menu-button color="light"></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="cs-title">Market Place</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="transparent">
+  <ion-slides pager="false" class="white-slide sm-slide mb70">
+    <ion-slide>
+      <div class="wp100">
+        <ion-list  class="transparent">
+          <ion-item color="bg-none">
+            <ion-grid class="ion-no-padding">
+              <ion-row nowrap class="ion-no-padding">
+                <ion-col size="11" class="ion-no-padding df ac jc">
+                  <ion-label class="slides-heading ion-no-padding"><h3 style="font-size: large;">Greenterprises SPV shares </h3></ion-label>
+                </ion-col>
+                <ion-col size="1" class="ion-no-padding df ac jc">
+                  <ion-icon name="chevron-forward" class="x-large" color="light"></ion-icon>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-item>
+        </ion-list>
+
+        <ion-card>
+          <ion-card-content style="height: 100px; background: #ffffff;">
+            <h3>Graph</h3>
+          </ion-card-content>
+        </ion-card>
+      
+       
+        <div class="legend-line  bdr-bottom">
+          <ion-icon name="person-circle"></ion-icon> &nbsp; Your ads &nbsp;
+          <ion-icon name="people"></ion-icon>&nbsp; Other sellers  
+        </div>
+        <ion-list lines="none" class="swipecard  swipecard-flat  ion-no-padding cs-transparent-list">
+          <ion-item color="bg-none" class="share-list-item">
+            <ion-grid class="ion-no-padding">
+              <ion-row nowrap class="ion-no-padding">
+                <ion-col size="1" class="ion-no-padding df ac jc pb10">
+                  <div class="shares-user-info-item text-center ">
+                    <ion-icon name="people"></ion-icon>
+                  </div>        
+                </ion-col>
+                <ion-col size="5" class="ion-no-padding border-right pb10">
+                  <ion-row nowrap class="ion-no-padding offer-row row bdr-bottom">
+                    <ion-col size="12" class="ion-no-padding share-content ">
+                      <div class="offer wp100">
+                        <p class="wp100 ion-text-left">Shares for sale: </p>
+                        <span>500</span>
+                      </div>
+                    </ion-col>
+                  </ion-row>
+                  <ion-row nowrap class="ion-no-padding offer-row row ">
+                    <ion-col size="12" class="ion-no-padding share-content ">
+                      <div class="offer wp100">
+                        <p class="wp100 ion-text-left">Price per share: </p>
+                        <span> R0.15 </span>
+                        <p class="wp100 ion-text-center"> 14/9/20 10:16 AM </p>
+                      </div>
+                    </ion-col>
+                  </ion-row>
+                </ion-col>
+                <ion-col size="5" class="ion-no-padding pb10">
+                  <ion-row nowrap class="ion-no-padding offer-row row bdr-bottom">
+                    <ion-col size="12" class="ion-no-padding share-content ">
+                      <div class="offer wp100">
+                        <p class="wp100 ion-text-right">Seller's ask</p>
+                        <span> R0.15 </span>
+                      </div>
+                    </ion-col>
+                  </ion-row>
+                  <ion-row nowrap class="ion-no-padding offer-row row">
+                    <ion-col size="12" class="ion-no-padding share-content ">
+                      <div class="offer wp100">
+                        <p class="wp100 ion-text-right">Your offer </p>
+                        <span> R0.15 </span>
+                        <p class="wp100 ion-text-center"> 14/9/20 11:00 AM </p>
+                      </div>
+                    </ion-col>
+                  </ion-row>
+                </ion-col>
+                <ion-col size="1" class=" ion-no-padding df ac jc pb10">
+                  <div class="shares-user-info-item text-center ">
+                    <ion-icon name="ellipsis-vertical" (click)="presentActionSheet()"></ion-icon>
+                  </div>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-item>
+          <ion-item color="bg-none" class="share-list-item">
+            <ion-grid class="ion-no-padding">
+              <ion-row nowrap class="ion-no-padding">
+                <ion-col size="1" class="ion-no-padding df ac jc pb10">
+                  <div class="shares-user-info-item text-center ">
+                    <ion-icon name="people"></ion-icon>
+                  </div>        
+                </ion-col>
+                <ion-col size="5" class="ion-no-padding border-right pb10">
+                  <ion-row nowrap class="ion-no-padding offer-row row bdr-bottom">
+                    <ion-col size="12" class="ion-no-padding share-content ">
+                      <div class="offer wp100">
+                        <p class="wp100 ion-text-left">Shares for sale: </p>
+                        <span>500</span>
+                      </div>
+                    </ion-col>
+                  </ion-row>
+                  <ion-row nowrap class="ion-no-padding offer-row row ">
+                    <ion-col size="12" class="ion-no-padding share-content ">
+                      <div class="offer wp100">
+                        <p class="wp100 ion-text-left">Price per share: </p>
+                        <span> R0.15 </span>
+                        <p class="wp100 ion-text-center"> 14/9/20 10:16 AM </p>
+                      </div>
+                    </ion-col>
+                  </ion-row>
+                </ion-col>
+                <ion-col size="5" class="ion-no-padding pb10">
+                  <ion-row nowrap class="ion-no-padding offer-row row bdr-bottom">
+                    <ion-col size="12" class="ion-no-padding share-content ">
+                      <div class="offer wp100">
+                        <p class="wp100 ion-text-right">Seller's ask</p>
+                        <span> R0.15 </span>
+                      </div>
+                    </ion-col>
+                  </ion-row>
+                  <ion-row nowrap class="ion-no-padding offer-row row">
+                    <ion-col size="12" class="ion-no-padding share-content ">
+                      <div class="offer wp100">
+                        <p class="wp100 ion-text-right">Your offer </p>
+                        <span> R0.15 </span>
+                        <p class="wp100 ion-text-center"> 14/9/20 11:00 AM </p>
+                      </div>
+                    </ion-col>
+                  </ion-row>
+                </ion-col>
+                <ion-col size="1" class=" ion-no-padding df ac jc pb10">
+                  <div class="shares-user-info-item text-center ">
+                    <ion-icon name="ellipsis-vertical" (click)="presentActionSheet()"></ion-icon>
+                  </div>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-item>
+          <ion-item color="bg-none" class="share-list-item">
+            <ion-grid class="ion-no-padding">
+              <ion-row nowrap class="ion-no-padding">
+                <ion-col size="1" class="ion-no-padding df ac jc pb10">
+                  <div class="shares-user-info-item text-center ">
+                    <ion-icon name="people"></ion-icon>
+                  </div>        
+                </ion-col>
+                <ion-col size="5" class="ion-no-padding border-right pb10">
+                  <ion-row nowrap class="ion-no-padding offer-row row bdr-bottom">
+                    <ion-col size="12" class="ion-no-padding share-content ">
+                      <div class="offer wp100">
+                        <p class="wp100 ion-text-left">Shares for sale: </p>
+                        <span>500</span>
+                      </div>
+                    </ion-col>
+                  </ion-row>
+                  <ion-row nowrap class="ion-no-padding offer-row row ">
+                    <ion-col size="12" class="ion-no-padding share-content ">
+                      <div class="offer wp100">
+                        <p class="wp100 ion-text-left">Price per share: </p>
+                        <span> R0.15 </span>
+                        <p class="wp100 ion-text-center"> 14/9/20 10:16 AM </p>
+                      </div>
+                    </ion-col>
+                  </ion-row>
+                </ion-col>
+                <ion-col size="5" class="ion-no-padding pb10">
+                  <ion-row nowrap class="ion-no-padding offer-row row bdr-bottom">
+                    <ion-col size="12" class="ion-no-padding share-content ">
+                      <div class="offer wp100">
+                        <p class="wp100 ion-text-right">Seller's ask</p>
+                        <span> R0.15 </span>
+                      </div>
+                    </ion-col>
+                  </ion-row>
+                  <ion-row nowrap class="ion-no-padding offer-row row">
+                    <ion-col size="12" class="ion-no-padding share-content ">
+                      <div class="offer wp100">
+                        <p class="wp100 ion-text-right">Your offer </p>
+                        <span> R0.15 </span>
+                        <p class="wp100 ion-text-center"> 14/9/20 11:00 AM </p>
+                      </div>
+                    </ion-col>
+                  </ion-row>
+                </ion-col>
+                <ion-col size="1" class=" ion-no-padding df ac jc pb10">
+                  <div class="shares-user-info-item text-center ">
+                    <ion-icon name="ellipsis-vertical" (click)="presentActionSheet()"></ion-icon>
+                  </div>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-item>
+        </ion-list>
+      </div>
+    </ion-slide>
+    <ion-slide>
+      <div class="wp100">
+        <div class="slides-heading ">
+          <h3 class="ion-text-center">My open offers to buy shares</h3>
+        </div>
+        <ion-list lines="none" class="swipecard  swipecard-flat  ion-no-padding cs-transparent-list">
+          <ion-item color="bg-none" class="share-list-item">
+            <ion-grid class="ion-no-padding">
+              <ion-row nowrap class="ion-no-padding">
+                <ion-col size="1" class="ion-no-padding df ac jc pb10">
+                  <div class="shares-user-info-item text-center ">
+                    <ion-icon name="star"></ion-icon>
+                  </div>        
+                </ion-col>
+                <ion-col size="5" class="ion-no-padding border-right pb10">
+                  <ion-row nowrap class="ion-no-padding offer-row row">
+                    <ion-col size="12" class="ion-no-padding share-content ">
+                      <div class="offer wp100">
+                        <p class="wp100 ion-text-left">Shares wanted</p>
+                        <span class="wp100 ion-text-left mt5">500</span>
+                        <p class="wp100 ion-text-left mt5">Original price</p>
+                        <span class="wp100 ion-text-left mt5"> R0.12 </span>
+                        <p class="wp100 ion-text-left"> 14/9/20 11:00 AM </p>
+                      </div>
+                    </ion-col>
+                  </ion-row>
+                </ion-col>
+                <ion-col size="5" class="ion-no-padding pb10">
+                  <ion-row nowrap class="ion-no-padding offer-row row">
+                    <ion-col size="12" class="ion-no-padding share-content ">
+                      <div class="offer wp100">
+                        <p class="wp100 ion-text-right">Your offer</p>
+                        <span class="wp100 ion-text-right mt5"> R0.12 </span>
+                        <p class="wp100 ion-text-right mt5">Price asked</p>
+                        <span class="wp100 ion-text-right mt5">N/A</span>
+                      </div>
+                    </ion-col>
+                  </ion-row>
+                </ion-col>
+                <ion-col size="1" class=" ion-no-padding df ac jc pb10">
+                  <div class="shares-user-info-item text-center ">
+                    <ion-icon name="ellipsis-vertical" (click)="presentActionSheet()"></ion-icon>
+                  </div>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-item>
+          <ion-item color="bg-none" class="share-list-item">
+            <ion-grid class="ion-no-padding">
+              <ion-row nowrap class="ion-no-padding">
+                <ion-col size="1" class="ion-no-padding df ac jc pb10">
+                  <div class="shares-user-info-item text-center ">
+                    <ion-icon name="star"></ion-icon>
+                  </div>        
+                </ion-col>
+                <ion-col size="5" class="ion-no-padding border-right pb10">
+                  <ion-row nowrap class="ion-no-padding offer-row row">
+                    <ion-col size="12" class="ion-no-padding share-content ">
+                      <div class="offer wp100">
+                        <p class="wp100 ion-text-left">Shares wanted</p>
+                        <span class="wp100 ion-text-left mt5">500</span>
+                        <p class="wp100 ion-text-left mt5">Original price</p>
+                        <span class="wp100 ion-text-left mt5"> R0.12 </span>
+                        <p class="wp100 ion-text-left"> 14/9/20 11:00 AM </p>
+                      </div>
+                    </ion-col>
+                  </ion-row>
+                </ion-col>
+                <ion-col size="5" class="ion-no-padding pb10">
+                  <ion-row nowrap class="ion-no-padding offer-row row">
+                    <ion-col size="12" class="ion-no-padding share-content ">
+                      <div class="offer wp100">
+                        <p class="wp100 ion-text-right">Your offer</p>
+                        <span class="wp100 ion-text-right mt5"> R0.12 </span>
+                        <p class="wp100 ion-text-right mt5">Price asked</p>
+                        <span class="wp100 ion-text-right mt5">N/A</span>
+                      </div>
+                    </ion-col>
+                  </ion-row>
+                </ion-col>
+                <ion-col size="1" class=" ion-no-padding df ac jc pb10">
+                  <div class="shares-user-info-item text-center ">
+                    <ion-icon name="ellipsis-vertical" (click)="presentActionSheet()"></ion-icon>
+                  </div>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-item>
+          <ion-item color="bg-none" class="share-list-item">
+            <ion-grid class="ion-no-padding">
+              <ion-row nowrap class="ion-no-padding">
+                <ion-col size="1" class="ion-no-padding df ac jc pb10">
+                  <div class="shares-user-info-item text-center ">
+                    <ion-icon name="star"></ion-icon>
+                  </div>        
+                </ion-col>
+                <ion-col size="5" class="ion-no-padding border-right pb10">
+                  <ion-row nowrap class="ion-no-padding offer-row row">
+                    <ion-col size="12" class="ion-no-padding share-content ">
+                      <div class="offer wp100">
+                        <p class="wp100 ion-text-left">Shares wanted</p>
+                        <span class="wp100 ion-text-left mt5">500</span>
+                        <p class="wp100 ion-text-left mt5">Original price</p>
+                        <span class="wp100 ion-text-left mt5"> R0.12 </span>
+                        <p class="wp100 ion-text-left"> 14/9/20 11:00 AM </p>
+                      </div>
+                    </ion-col>
+                  </ion-row>
+                </ion-col>
+                <ion-col size="5" class="ion-no-padding pb10">
+                  <ion-row nowrap class="ion-no-padding offer-row row">
+                    <ion-col size="12" class="ion-no-padding share-content ">
+                      <div class="offer wp100">
+                        <p class="wp100 ion-text-right">Your offer</p>
+                        <span class="wp100 ion-text-right mt5"> R0.12 </span>
+                        <p class="wp100 ion-text-right mt5">Price asked</p>
+                        <span class="wp100 ion-text-right mt5">N/A</span>
+                      </div>
+                    </ion-col>
+                  </ion-row>
+                </ion-col>
+                <ion-col size="1" class=" ion-no-padding df ac jc pb10">
+                  <div class="shares-user-info-item text-center ">
+                    <ion-icon name="ellipsis-vertical" (click)="presentActionSheet()"></ion-icon>
+                  </div>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-item>
+          <ion-item color="bg-none" class="share-list-item">
+            <ion-grid class="ion-no-padding">
+              <ion-row nowrap class="ion-no-padding">
+                <ion-col size="1" class="ion-no-padding df ac jc pb10">
+                  <div class="shares-user-info-item text-center ">
+                    <ion-icon name="star"></ion-icon>
+                  </div>        
+                </ion-col>
+                <ion-col size="5" class="ion-no-padding border-right pb10">
+                  <ion-row nowrap class="ion-no-padding offer-row row">
+                    <ion-col size="12" class="ion-no-padding share-content ">
+                      <div class="offer wp100">
+                        <p class="wp100 ion-text-left">Shares wanted</p>
+                        <span class="wp100 ion-text-left mt5">500</span>
+                        <p class="wp100 ion-text-left mt5">Original price</p>
+                        <span class="wp100 ion-text-left mt5"> R0.12 </span>
+                        <p class="wp100 ion-text-left"> 14/9/20 11:00 AM </p>
+                      </div>
+                    </ion-col>
+                  </ion-row>
+                </ion-col>
+                <ion-col size="5" class="ion-no-padding pb10">
+                  <ion-row nowrap class="ion-no-padding offer-row row">
+                    <ion-col size="12" class="ion-no-padding share-content ">
+                      <div class="offer wp100">
+                        <p class="wp100 ion-text-right">Your offer</p>
+                        <span class="wp100 ion-text-right mt5"> R0.12 </span>
+                        <p class="wp100 ion-text-right mt5">Price asked</p>
+                        <span class="wp100 ion-text-right mt5">N/A</span>
+                      </div>
+                    </ion-col>
+                  </ion-row>
+                </ion-col>
+                <ion-col size="1" class=" ion-no-padding df ac jc pb10">
+                  <div class="shares-user-info-item text-center ">
+                    <ion-icon name="ellipsis-vertical" (click)="presentActionSheet()"></ion-icon>
+                  </div>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-item>
+        </ion-list>
+      </div>
+    </ion-slide>
+  </ion-slides>
+  
+  
+  <ion-fab horizontal="start" vertical="bottom" slot="fixed">
+    <ion-fab-button  class="ionFabMenuButton" size="small">
+      <ion-icon md="menu" ios="menu"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-list side="top">
+      <ion-fab-button color="secondary">
+        <ion-icon name="help"></ion-icon>
+        <!-- <label class="popup-label"><span>Register</span></label> -->
+      </ion-fab-button>
+      <ion-fab-button  color="secondary" >
+        <ion-icon name="home"></ion-icon>
+        <!-- <label class="popup-label"><span>Undo</span></label> -->
+      </ion-fab-button>
+      
+    </ion-fab-list>
+  </ion-fab>
+</ion-content>
