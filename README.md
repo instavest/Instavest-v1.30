@@ -1,2 +1,2 @@
-# Instavest-v1.23
+# Instavest-v1.30
  Fractional Investment Prototype
