@@ -1,1 +1,2 @@
-Instavest Private Source Code. Officially licenced by Fraxeum.com
+# Instavest-v1.23
+ Fractional Investment Prototype
