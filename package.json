@@ -40,7 +40,6 @@
     "@ionic/storage": "^3.0.6",
     "@ionic/storage-angular": "^3.0.6",
     "@stripe/stripe-js": "^1.54.2",
-    "capacitor-resources": "^2.0.5",
     "chart.js": "^3.9.1",
     "cocoapods": "^0.0.0",
     "rxjs": "^7.8.1",
