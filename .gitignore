@@ -2,7 +2,6 @@ node_modules
 android
 ios
 .DS_Store
-.npmrc
 .vscode/*
 README.md
 LICENSE
