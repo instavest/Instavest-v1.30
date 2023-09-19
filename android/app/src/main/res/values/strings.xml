@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Instavest</string>
+    <string name="title_activity_main">Instavest</string>
+    <string name="package_name">com.instavest.demo</string>
+    <string name="custom_url_scheme">com.instavest.demo</string>
+</resources>
